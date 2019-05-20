@@ -8,9 +8,9 @@
 #include <string>
 
 #include "Graph.h"
+#include "types.h"
 
-template<class T>
-Graph<T> readGraph(string name){
+Graph<VertexInfo> readGraph(string name){
     
     Graph<VertexInfo> g;
     
@@ -49,6 +49,25 @@ Graph<T> readGraph(string name){
 
     f.open(map_dir+"T03_edges_"+name+".txt");
     
+    getline(f, file_line);
+    lines = stoi(file_line);
+
+    int ID_origin, ID_destiny;   
+    
+    while(lines > 0){
+        getline(f, file_line);
+        file_line = file_line.substr(1);
+        
+        ID_origin = stoi(file_line.substr(0, file_line.find(","));
+        file_line = file_line.substr(file_line.find(",")+1);
+
+        ID_destiny = stod(file_line.substr(0, file_line.find(")")));
+        
+        g.addEdge(ID_origin, ID_destiny);
+        
+        lines--;
+    }
+
     f.close();
 }
 
