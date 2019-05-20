@@ -21,7 +21,7 @@ class VertexInfo{
         double getID(){return id;}
 
         bool operator == (VertexInfo const &obj){
-            return (x == obj.getX && y == obj.getY && id == obj.getID);
+            return id == obj.getID;
         }
 };
 

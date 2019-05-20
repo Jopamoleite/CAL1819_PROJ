@@ -30,10 +30,10 @@ Graph<VertexInfo> readGraph(string name){
         getline(f, file_line);
         file_line = file_line.substr(1);
         
-        ID = stoi(file_line.substr(0, file_line.find(","));
+        ID = stoi(file_line.substr(0, file_line.find(",")));
         file_line = file_line.substr(file_line.find(",")+1);
 
-        X = stod(file_line.substr(0, file_lind.find(",")));
+        X = stod(file_line.substr(0, file_line.find(",")));
         file_line = file_line.substr(file_line.find(",")+1);
 
         Y = stod(file_line.substr(0, file_line.find(")")));
@@ -58,12 +58,15 @@ Graph<VertexInfo> readGraph(string name){
         getline(f, file_line);
         file_line = file_line.substr(1);
         
-        ID_origin = stoi(file_line.substr(0, file_line.find(","));
+        ID_origin = stoi(file_line.substr(0, file_line.find(",")));
         file_line = file_line.substr(file_line.find(",")+1);
 
         ID_destiny = stod(file_line.substr(0, file_line.find(")")));
         
-        g.addEdge(ID_origin, ID_destiny);
+        VertexInfo origin(ID_origin, 0, 0);
+        VertexInfo destiny(ID_destiny, 0, 0);
+
+        g.addEdge(origin, destiny, 0);
         
         lines--;
     }
