@@ -37,6 +37,7 @@ public:
 	Vertex(T in);
 	bool operator<(Vertex<T> & vertex) const; // // required by MutablePriorityQueue
 	T getInfo() const;
+	void setInfo(const T);
 	double getDist() const;
 	Vertex *getPath() const;
 	friend class Graph<T>;
@@ -64,6 +65,11 @@ bool Vertex<T>::operator<(Vertex<T> & vertex) const {
 template <class T>
 T Vertex<T>::getInfo() const {
 	return this->info;
+}
+
+template <class T>
+void Vertex<T>::setInfo(const T){
+	this->info = T;
 }
 
 template <class T>
@@ -104,6 +110,9 @@ public:
 	bool addEdge(const T &sourc, const T &dest, double w);
 	int getNumVertex() const;
 	vector<Vertex<T> *> getVertexSet() const;
+
+	Vertex<T> * initSingleSource(const T &origin);
+	bool relax(Vertex<T> *v, Vertex<T> *w, double weight);
 
 	// Fp05 - single source
 	void dijkstraShortestPath(const T &s);
