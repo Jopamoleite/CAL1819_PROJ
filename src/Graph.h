@@ -26,7 +26,7 @@ template <class T>
 class Vertex {
 	T info;                // contents
 	vector<Edge<T> > adj;  // outgoing edges
-	bool visited;          // auxiliary field
+	bool visited = false;          // auxiliary field
 	double dist = 0;
 	Vertex<T> *path = NULL;
 	int queueIndex = 0; 		// required by MutablePriorityQueue

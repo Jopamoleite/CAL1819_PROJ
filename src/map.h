@@ -17,7 +17,7 @@ Graph<VertexInfo> readGraph(string name){
     
     Graph<VertexInfo> g;
     
-    string map_dir = "mapas/"+name+"/";
+    string map_dir = "../mapas/"+name+"/";
     ifstream f(map_dir+"T03_nodes_X_Y_"+name+".txt");
     ifstream f1(map_dir+"T03_nodes_lat_lon_"+name+".txt");
 
