@@ -6,9 +6,12 @@
 
 #include <fstream>
 #include <string>
+#include <iostream>
+
+using namespace std;
 
 #include "Graph.h"
-#include "types.h"
+#include "VertexInfo.h"
 
 Graph<VertexInfo> readGraph(string name){
     
@@ -20,7 +23,7 @@ Graph<VertexInfo> readGraph(string name){
 
     int lines = 0;
     string file_line;
-    
+
     getline(f, file_line);
     lines = stoi(file_line);
 
@@ -106,6 +109,7 @@ Graph<VertexInfo> readGraph(string name){
     }
 
     f.close();
+    return g;
 }
 
 #endif

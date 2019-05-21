@@ -1,7 +1,9 @@
-#ifndef TYPES_H
-#define TYPES_H
+#ifndef VERTEXINFO_H
+#define VERTEXINFO_H
 
 #include <string>
+
+using namespace std;
 
 class VertexInfo{
     private:
@@ -15,12 +17,12 @@ class VertexInfo{
 
     public:
         VertexInfo(unsigned long id, double x, double y, double latitude, double longitude){
-            this->id = id;
-            this->x = x;
-            this->y = y;
-            this->latitude = latitude;
-            this->longitude = longitude;
-            this->isPOI = false;
+                    this->id = id;
+                    this->x = x;
+                    this->y = y;
+                    this->latitude = latitude;
+                    this->longitude = longitude;
+                    this->isPOI = false;
         }
 
         double getX(){return x;}
@@ -36,11 +38,14 @@ class VertexInfo{
             this->isPOI = true;
         }
 
-        unsigned long getID(){return id;}
+        unsigned long getID() const {return id;}
 
-        bool operator == (VertexInfo const &obj){
-            return id == obj.getID;
-        }
+        bool operator== (const VertexInfo & obj) const{
+                	if(this->getID() == obj.getID()){
+                		return true;
+                	}
+                    return false;
+                }
 };
 
 #endif

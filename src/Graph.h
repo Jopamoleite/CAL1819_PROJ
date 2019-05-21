@@ -68,8 +68,8 @@ T Vertex<T>::getInfo() const {
 }
 
 template <class T>
-void Vertex<T>::setInfo(const T){
-	this->info = T;
+void Vertex<T>::setInfo(const T info){
+	this->info = info;
 }
 
 template <class T>
