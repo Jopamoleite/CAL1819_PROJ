@@ -27,6 +27,8 @@ Graph<VertexInfo> readGraph(string name){
     getline(f, file_line);
     lines = stoi(file_line);
 
+    getline(f1, file_line);
+
     unsigned long ID;
     double X, Y, lat, lon;
     
