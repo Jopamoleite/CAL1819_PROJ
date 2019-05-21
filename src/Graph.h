@@ -109,6 +109,7 @@ public:
 	Vertex<T> *findVertex(const T &in) const;
 	bool addVertex(const T &in);
 	bool addEdge(const T &sourc, const T &dest, double w);
+	bool addEdge(const T &sourc, const T &dest);
 	int getNumVertex() const;
 	vector<Vertex<T> *> getVertexSet() const;
 
@@ -176,6 +177,20 @@ bool Graph<T>::addEdge(const T &sourc, const T &dest, double w) {
 	return true;
 }
 
+/*
+ * Adds an edge to a graph (this), given the contents of the source and
+ * destination vertices.
+ * Returns true if successful, and false if the source or destination vertex does not exist.
+ */
+template <class T>
+bool Graph<T>::addEdge(const T &sourc, const T &dest) {
+	auto v1 = findVertex(sourc);
+	auto v2 = findVertex(dest);
+	if (v1 == NULL || v2 == NULL)
+		return false;
+	v1->addEdge(v2,v2->getInfo()-v1->getInfo());
+	return true;
+}
 
 /**************** Single Source Shortest Path algorithms ************/
 

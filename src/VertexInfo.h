@@ -15,37 +15,26 @@ class VertexInfo{
         bool isPOI;
         string tag;
 
+        double distance_between_points(const VertexInfo &v) const;
+
     public:
-        VertexInfo(unsigned long id, double x, double y, double latitude, double longitude){
-                    this->id = id;
-                    this->x = x;
-                    this->y = y;
-                    this->latitude = latitude;
-                    this->longitude = longitude;
-                    this->isPOI = false;
-        }
+        VertexInfo(unsigned long id, double x, double y, double latitude, double longitude);
 
-        double getX(){return x;}
+        double getX() const {return x;}
 
-        double getY(){return y;}
+        double getY() const {return y;}
 
-        double getLatitude(){ return latitude; }
+        double getLatitude() const { return latitude; }
 
-        double getLongitude(){ return longitude; }
-
-        void addTag(string tag){
-            this->tag = tag;
-            this->isPOI = true;
-        }
+        double getLongitude() const { return longitude; }
 
         unsigned long getID() const {return id;}
 
-        bool operator== (const VertexInfo & obj) const{
-                	if(this->getID() == obj.getID()){
-                		return true;
-                	}
-                    return false;
-                }
+        void addTag(string tag);
+
+        bool operator== (const VertexInfo & obj) const;
+
+        double operator-(const VertexInfo& v) const;
 };
 
 #endif
