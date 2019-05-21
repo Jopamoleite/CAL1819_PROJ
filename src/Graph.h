@@ -7,6 +7,7 @@
 #include <vector>
 #include <queue>
 #include <list>
+#include <stack>
 #include <limits>
 #include <cmath>
 #include "MutablePriorityQueue.h"
@@ -261,6 +262,67 @@ vector<T> Graph<T>::getPath(const T &origin, const T &dest) const{
 	reverse(res.begin(), res.end());
 	return res;
 }
+
+/*
+void Graph::SCCUtil(int u, int disc[], int low[], stack<int> *st,
+                    bool stackMember[])
+{
+    static int time = 0;
+
+    disc[u] = low[u] = ++time;
+    st->push(u);
+    stackMember[u] = true;
+
+    list<int>::iterator i;
+    for (i = adj[u].begin(); i != adj[u].end(); ++i)
+    {
+        int v = *i;  // v is current adjacent of 'u'
+
+        // If v is not visited yet, then recur for it
+        if (disc[v] == -1)
+        {
+            SCCUtil(v, disc, low, st, stackMember);
+
+            low[u]  = min(low[u], low[v]);
+        }else if (stackMember[v] == true)
+            low[u]  = min(low[u], disc[v]);
+    }
+
+    int w = 0;  // To store stack extracted vertices
+    if (low[u] == disc[u])
+    {
+        while (st->top() != u)
+        {
+            w = (int) st->top();
+            cout << w << " ";
+            stackMember[w] = false;
+            st->pop();
+        }
+        w = (int) st->top();
+        cout << w << "n";
+        stackMember[w] = false;
+        st->pop();
+    }
+}
+
+void Graph::SCC()
+{
+    int *disc = new int[V];
+    int *low = new int[V];
+    bool *stackMember = new bool[V];
+    stack<int> *st = new stack<int>();
+
+    for (int i = 0; i < V; i++)
+    {
+        disc[i] = -1;
+        low[i] = -1;
+        stackMember[i] = false;
+    }
+
+    for (int i = 0; i < V; i++)
+        if (disc[i] == -1)
+            SCCUtil(i, disc, low, st, stackMember);
+} */
 
 
 #endif /* GRAPH_H_ */

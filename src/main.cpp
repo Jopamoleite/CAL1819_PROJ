@@ -6,8 +6,7 @@
 
 int main(){
 
-	readGraph("Porto");
+	Graph<VertexInfo> graph = readGraph("Porto");
 
-
-    return 0;
+	return 0;
 }
