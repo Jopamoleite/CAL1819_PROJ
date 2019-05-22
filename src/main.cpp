@@ -4,11 +4,16 @@
 #include "VertexInfo.h"
 
 #include <iostream>
+#include <string>
 
 using namespace std;
 
 int main(){
-	Graph<VertexInfo> graph = readGraph("Porto");
+	cout << "City: ";
+	string city;
+	cin >> city;
+	Graph<VertexInfo> graph = readGraph(city);
+
 	viewGraph(graph);
 	getchar();
 	return 0;
