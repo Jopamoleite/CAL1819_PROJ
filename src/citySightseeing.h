@@ -9,9 +9,10 @@
 
 #include "VertexInfo.h"
 
+void dividePeople();
+
 void firstIteration(VertexInfo start, vector<VertexInfo> pois, VertexInfo finish);
 
 void secondIteration(VertexInfo start, vector<VertexInfo> pois, VertexInfo finish); //Caixeiro-viajante
-
 
 #endif /* SRC_CITYSIGHTSEEING_H_ */
