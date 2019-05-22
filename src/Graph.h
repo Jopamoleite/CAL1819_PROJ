@@ -41,6 +41,7 @@ public:
 	void setInfo(const T);
 	double getDist() const;
 	Vertex *getPath() const;
+	vector<Edge<T>> getAdjEdges() const;
 	friend class Graph<T>;
 	friend class MutablePriorityQueue<Vertex<T>>;
 };
@@ -83,6 +84,11 @@ Vertex<T> *Vertex<T>::getPath() const {
 	return this->path;
 }
 
+template<class T>
+vector<Edge<T>> Vertex<T>::getAdjEdges() const{
+	return this->adj;
+}
+
 /********************** Edge  ****************************/
 
 template <class T>
@@ -91,6 +97,7 @@ class Edge {
 	double weight;         // edge weight
 public:
 	Edge(Vertex<T> *d, double w);
+	Vertex<T> * getDest() const;
 	friend class Graph<T>;
 	friend class Vertex<T>;
 };
@@ -98,7 +105,8 @@ public:
 template <class T>
 Edge<T>::Edge(Vertex<T> *d, double w): dest(d), weight(w) {}
 
-
+template <class T>
+Vertex<T> * Edge<T>::getDest() const {return dest;}
 /*************************** Graph  **************************/
 
 template <class T>

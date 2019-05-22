@@ -6,8 +6,11 @@
 
 #include <fstream>
 #include <iostream>
+#include <string>
 
 #include "map.h"
+#include "graphviewer.h"
+#include "edgetype.h"
 
 using namespace std;
 
@@ -115,4 +118,38 @@ Graph<VertexInfo> readGraph(string name){
     return g;
 }
 
+int viewGraph(Graph<VertexInfo> graph){
 
+	GraphViewer *gv = new GraphViewer(2000, 2000, false);
+
+	gv->createWindow(2000, 2000);
+
+	gv->defineEdgeColor("blue");
+	gv->defineVertexColor("yellow");
+
+	vector<Vertex<VertexInfo>*> vertexSet = graph.getVertexSet();
+	Vertex<VertexInfo>* currentVertex = new Vertex<VertexInfo>(VertexInfo(0,0,0,0,0));
+	vector<Edge<VertexInfo>> currentEdges;
+	int edgeID = 0;
+	double offsetX = vertexSet.at(0)->getInfo().getX();
+	double offsetY = vertexSet.at(0)->getInfo().getY();
+
+	for(size_t i = 0; i < vertexSet.size(); i++){
+		currentVertex = vertexSet.at(i);
+		gv->addNode(currentVertex->getInfo().getID(), currentVertex->getInfo().getX()-offsetX, currentVertex->getInfo().getY()-offsetY);
+		currentEdges = currentVertex->getAdjEdges();
+	}
+
+	for(size_t i = 0; i < vertexSet.size(); i++){
+		currentVertex = vertexSet.at(i);
+		currentEdges = currentVertex->getAdjEdges();
+		for(size_t j = 0; j < currentEdges.size(); j++){
+			gv->addEdge(edgeID, currentVertex->getInfo().getID(), currentEdges.at(j).getDest()->getInfo().getID(), EdgeType::UNDIRECTED);
+			edgeID++;
+		}
+	}
+
+	gv->rearrange();
+
+	return 0;
+}

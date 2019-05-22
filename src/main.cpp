@@ -8,7 +8,8 @@
 using namespace std;
 
 int main(){
-	Graph<VertexInfo> graph = readGraph("Portugal");
-
+	Graph<VertexInfo> graph = readGraph("Porto");
+	viewGraph(graph);
+	getchar();
 	return 0;
 }

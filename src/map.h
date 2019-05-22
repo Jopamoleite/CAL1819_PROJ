@@ -10,5 +10,6 @@
 #include "VertexInfo.h"
 
 Graph<VertexInfo> readGraph(std::string name);
+int viewGraph(Graph<VertexInfo> graph);
 
 #endif
