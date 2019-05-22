@@ -10,6 +10,7 @@
 #include <stack>
 #include <limits>
 #include <cmath>
+#include <iostream>
 #include "MutablePriorityQueue.h"
 
 using namespace std;
@@ -29,6 +30,7 @@ class Vertex {
 	bool visited = false;          // auxiliary field
 	double dist = 0;
 	Vertex<T> *path = NULL;
+	int index = 0;
 	int queueIndex = 0; 		// required by MutablePriorityQueue
 
 	bool processing = false;
@@ -113,6 +115,8 @@ template <class T>
 class Graph {
 	vector<Vertex<T> *> vertexSet;    // vertex set
 
+	void SCCUtil(Vertex<T>* v, int discovered[], int early[], stack<int> *stck, bool stackMember[]);
+
 public:
 	Vertex<T> *findVertex(const T &in) const;
 	bool addVertex(const T &in);
@@ -120,6 +124,8 @@ public:
 	bool addEdge(const T &sourc, const T &dest);
 	int getNumVertex() const;
 	vector<Vertex<T> *> getVertexSet() const;
+
+	void SCC();
 
 	Vertex<T> * initSingleSource(const T &origin);
 	bool relax(Vertex<T> *v, Vertex<T> *w, double weight);
@@ -286,66 +292,67 @@ vector<T> Graph<T>::getPath(const T &origin, const T &dest) const{
 	return res;
 }
 
-/*
-void Graph::SCCUtil(int u, int disc[], int low[], stack<int> *st,
+template<class T>
+void Graph<T>::SCCUtil(Vertex<T>* v, int discovered[], int early[], stack<int> *stck,
                     bool stackMember[])
 {
     static int time = 0;
 
-    disc[u] = low[u] = ++time;
-    st->push(u);
-    stackMember[u] = true;
+    discovered[v->index] = early[v->index] = ++time;
+    stck->push(v->index);
+    stackMember[v->index] = true;
 
-    list<int>::iterator i;
-    for (i = adj[u].begin(); i != adj[u].end(); ++i)
+    for (unsigned int i = 0; i < v->adj.size(); ++i)
     {
-        int v = *i;  // v is current adjacent of 'u'
+        Vertex<T>* u = v->adj.at(i).dest;
 
-        // If v is not visited yet, then recur for it
-        if (disc[v] == -1)
+        if (discovered[u->index] == -1)
         {
-            SCCUtil(v, disc, low, st, stackMember);
+            SCCUtil(u, discovered, early, stck, stackMember);
 
-            low[u]  = min(low[u], low[v]);
-        }else if (stackMember[v] == true)
-            low[u]  = min(low[u], disc[v]);
+            early[v->index]  = min(early[v->index], early[u->index]);
+        }else if (stackMember[u->index] == true)
+            early[v->index]  = min(early[v->index], discovered[u->index]);
     }
 
     int w = 0;  // To store stack extracted vertices
-    if (low[u] == disc[u])
+    if (early[v->index] == discovered[v->index])
     {
-        while (st->top() != u)
+        while (stck->top() != v->index)
         {
-            w = (int) st->top();
+            w = (int) stck->top();
             cout << w << " ";
             stackMember[w] = false;
-            st->pop();
+            stck->pop();
         }
-        w = (int) st->top();
-        cout << w << "n";
+        w = (int) stck->top();
+        cout << w << "\n";
         stackMember[w] = false;
-        st->pop();
+        stck->pop();
     }
 }
 
-void Graph::SCC()
+template<class T>
+void Graph<T>::SCC()
 {
-    int *disc = new int[V];
-    int *low = new int[V];
-    bool *stackMember = new bool[V];
-    stack<int> *st = new stack<int>();
+    int *discovered = new int[vertexSet.size()];
+    int *early= new int[vertexSet.size()];
+    bool *stackMember = new bool[vertexSet.size()];
+    stack<int> *stck = new stack<int>();
 
-    for (int i = 0; i < V; i++)
+    for (unsigned int i = 0; i < vertexSet.size(); i++)
     {
-        disc[i] = -1;
-        low[i] = -1;
+    	vertexSet.at(i)->index = i;
+        discovered[i] = -1;
+        early[i] = -1;
         stackMember[i] = false;
     }
 
-    for (int i = 0; i < V; i++)
-        if (disc[i] == -1)
-            SCCUtil(i, disc, low, st, stackMember);
-} */
+    for (unsigned int i = 0; i < vertexSet.size(); i++){
+        if (discovered[i] == -1)
+            SCCUtil(vertexSet.at(i), discovered, early, stck, stackMember);
 
+    }
+}
 
 #endif /* GRAPH_H_ */
