@@ -7,6 +7,9 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <time.h>
+#include <thread>
+#include <vector>
 
 #include "map.h"
 #include "graphviewer.h"
@@ -34,6 +37,9 @@ Graph<VertexInfo> readGraph(string name){
     unsigned long ID;
     double X, Y, lat, lon;
 
+    //vector<thread> threads;
+    time_t tempo = time(NULL);
+    cout << "Begin: 0" << endl;
     while(lines > 0){
         getline(f, file_line);
         file_line = file_line.substr(1);
@@ -50,12 +56,15 @@ Graph<VertexInfo> readGraph(string name){
         lon = stod(file_line.substr(0, file_line.find(")")));
 
         VertexInfo v(ID, X, Y, lat, lon);
-
         g.addVertex(v);
+        //threads.push_back(thread(g.addVertex,v));
 
         lines--;
     }
-
+    /*for(vector<thread>::iterator it = threads.begin(); it != threads.end(); it++){
+    	(*it).join();
+    }*/
+    cout << "Read Nodes: " << time(NULL)-tempo << endl;
     f.close();
     f1.close();
 
@@ -76,15 +85,14 @@ Graph<VertexInfo> readGraph(string name){
         ID_destiny = stod(file_line.substr(0, file_line.find(")")));
 
         VertexInfo origin(ID_origin, 0, 0, 0, 0);
-        Vertex<VertexInfo>* v1 = g.findVertex(origin);
         VertexInfo destiny(ID_destiny, 0, 0, 0, 0);
-        Vertex<VertexInfo>*v2 = g.findVertex(destiny);
 
         g.addEdge(origin, destiny);
 
         lines--;
     }
 
+    cout << "Read Edges: " <<  time(NULL)-tempo << endl;
     f.close();
 
     f.open(map_dir+"T03_tags_"+name+".txt");
@@ -113,6 +121,7 @@ Graph<VertexInfo> readGraph(string name){
 
         lines--;
     }
+    cout << "Finished: " << time(NULL)-tempo << endl;
 
     f.close();
     return g;
