@@ -9,7 +9,7 @@
 #include "Graph.h"
 #include "VertexInfo.h"
 
-Graph<VertexInfo> readGraph(std::string name);
-int viewGraph(Graph<VertexInfo> graph);
+Graph readGraph(std::string name);
+int viewGraph(Graph graph);
 
 #endif

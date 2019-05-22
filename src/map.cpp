@@ -17,9 +17,9 @@
 
 using namespace std;
 
-Graph<VertexInfo> readGraph(string name){
+Graph readGraph(string name){
 
-    Graph<VertexInfo> g;
+    Graph g;
 
     string map_dir = "mapas/"+name+"/";
     ifstream f(map_dir+"T03_nodes_X_Y_"+name+".txt");
@@ -112,7 +112,7 @@ Graph<VertexInfo> readGraph(string name){
         while(number_nodes > 0){
             getline(f, file_line);
             ID = stoi(file_line);
-            Vertex<VertexInfo> *v = g.findVertex(VertexInfo(ID, 0, 0, 0, 0));
+            Vertex *v = g.findVertex(VertexInfo(ID, 0, 0, 0, 0));
             VertexInfo vi = v->getInfo();
             vi.addTag(tag);
             v->setInfo(vi);
@@ -127,7 +127,7 @@ Graph<VertexInfo> readGraph(string name){
     return g;
 }
 
-int viewGraph(Graph<VertexInfo> graph){
+int viewGraph(Graph graph){
 
 	GraphViewer *gv = new GraphViewer(2000, 2000, false);
 
@@ -136,9 +136,9 @@ int viewGraph(Graph<VertexInfo> graph){
 	gv->defineEdgeColor("blue");
 	gv->defineVertexColor("yellow");
 
-	vector<Vertex<VertexInfo>*> vertexSet = graph.getVertexSet();
-	Vertex<VertexInfo>* currentVertex = new Vertex<VertexInfo>(VertexInfo(0,0,0,0,0));
-	vector<Edge<VertexInfo>> currentEdges;
+	vector<Vertex*> vertexSet = graph.getVertexSet();
+	Vertex* currentVertex = new Vertex(VertexInfo(0,0,0,0,0));
+	vector<Edge> currentEdges;
 	int edgeID = 0;
 	double offsetX = vertexSet.at(0)->getInfo().getX();
 	double offsetY = vertexSet.at(0)->getInfo().getY();

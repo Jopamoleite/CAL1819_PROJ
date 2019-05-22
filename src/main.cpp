@@ -12,7 +12,7 @@ int main(){
 	cout << "City: ";
 	string city;
 	cin >> city;
-	Graph<VertexInfo> graph = readGraph(city);
+	Graph graph = readGraph(city);
 	graph.SCC();
 
 	viewGraph(graph);

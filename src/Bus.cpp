@@ -19,6 +19,6 @@ void Bus::addPOIs(vector<VertexInfo> pois){
 
 }
 
-void Bus::addVertex(Vertex<VertexInfo>* v){
+void Bus::addVertex(Vertex* v){
 	this->path.push_back(v);
 }
