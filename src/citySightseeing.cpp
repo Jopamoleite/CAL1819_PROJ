@@ -6,6 +6,7 @@
 #include <unordered_map>
 #include <queue>
 #include <utility>
+#include <algorithm>
 
 #include "citySightseeing.h"
 #include "Graph.h"
@@ -33,7 +34,8 @@ void firstIteration(Graph graph, VertexInfo start, vector<VertexInfo> pois, Vert
 		}
 	}
 }
-/*template <class T>
+
+template <class T>
 bool compareValues(const T &t1, const T &t2){
 	return t1.second.size() < t2.second.size();
 }
@@ -89,20 +91,31 @@ vector<vector<unsigned long>> dividePeople(vector<Person> people, int bus_capaci
 
 	while(!pq.empty()){
 		int cap = bus_capacity;
-
+		points.clear();
 		while(cap > 0){
 			Helper h = pq.top();
 			pq.pop();
-			/*
-			 * Add persons to here
-			 */
-			/*if(pq.empty()){
+			vector<Person> vp = h.getPeople();
+			while(cap > 0 && vp.size() > 0){
+				Person p1 = vp.back();
+				vp.pop_back();
+				vector<unsigned long> pois = p1.getPois();
+				for(size_t i = 0; i < pois.size(); i++){
+					if(find(points.begin(), points.end(), pois[i]) == points.end()){
+						points.push_back(pois[i]);
+					}
+				}
+				cap--;
+			}
+
+			if(pq.empty()){
 				break;
 			}
 		}
+		result.push_back(points);
 	}
 	return result;
-}*/
+}
 
 void secondIteration(VertexInfo start, vector<VertexInfo> pois, VertexInfo finish){
 
