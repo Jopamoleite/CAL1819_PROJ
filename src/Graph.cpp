@@ -229,14 +229,17 @@ vector<VertexInfo> Graph::getPath(const VertexInfo &origin, const VertexInfo &de
 	return res;
 }
 
+vector<vector<unsigned long>> Graph::getSCCs(){
+	return this->SCCs;
+}
 
-void Graph::SCCUtil(Vertex* v, int discovered[], int early[], stack<int> *stck,
+void Graph::SCCUtil(Vertex* v, int discovered[], int early[], stack<Vertex*> *stck,
 		bool stackMember[])
 {
 	static int time = 0;
 
 	discovered[v->index] = early[v->index] = ++time;
-	stck->push(v->index);
+	stck->push(v);
 	stackMember[v->index] = true;
 
 	for (unsigned int i = 0; i < v->adj.size(); ++i)
@@ -252,19 +255,24 @@ void Graph::SCCUtil(Vertex* v, int discovered[], int early[], stack<int> *stck,
 			early[v->index]  = min(early[v->index], discovered[u->index]);
 	}
 
-	int w = 0;  // To store stack extracted vertices
+	Vertex* vert = 0;  // To store stack extracted vertices
+	vector<unsigned long> component;
 	if (early[v->index] == discovered[v->index])
 	{
-		while (stck->top() != v->index)
+		while (stck->top() != v)
 		{
-			w = (int) stck->top();
+			vert = (Vertex*) stck->top();
 			//cout << w << " ";
-			stackMember[w] = false;
+			component.push_back(vert->info.getID());
+			stackMember[vert->index] = false;
 			stck->pop();
 		}
-		w = (int) stck->top();
+		vert = (Vertex*) stck->top();
 		//cout << w << "\n";
-		stackMember[w] = false;
+		component.push_back(vert->info.getID());
+		if(component.size()>1)
+			this->SCCs.push_back(component);
+		stackMember[vert->index] = false;
 		stck->pop();
 	}
 }
@@ -275,7 +283,7 @@ void Graph::SCC()
 	int *discovered = new int[vertexSet.size()];
 	int *early= new int[vertexSet.size()];
 	bool *stackMember = new bool[vertexSet.size()];
-	stack<int> *stck = new stack<int>();
+	stack<Vertex*> *stck = new stack<Vertex*>();
 
 	for (unsigned int i = 0; i < vertexSet.size(); i++)
 	{

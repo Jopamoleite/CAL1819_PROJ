@@ -54,6 +54,12 @@ int main(){
 				break;
 			}
 			graph.SCC();
+			/*for(unsigned int i = 0; i < graph.getSCCs().size(); i++){
+				for(unsigned int j = 0; j < graph.getSCCs().at(i).size(); j++){
+					cout << graph.getSCCs().at(i).at(j) << " ";
+				}
+				cout << endl;
+			}*/
 			break;
 		case 4:
 			if(graph.getNumVertex() == 0){

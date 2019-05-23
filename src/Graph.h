@@ -82,10 +82,11 @@ typedef unordered_map<unsigned long, int, idHash, idHash> idHashTable;
 
 class Graph {
 	vector<Vertex *> vertexSet;    // vertex set
+	vector<vector<unsigned long>> SCCs;
 
 	idHashTable ids;
 
-	void SCCUtil(Vertex* v, int discovered[], int early[], stack<int> *stck, bool stackMember[]);
+	void SCCUtil(Vertex* v, int discovered[], int early[], stack<Vertex*> *stck, bool stackMember[]);
 
 public:
 	Vertex *findVertex(const VertexInfo &in) const;
@@ -93,9 +94,11 @@ public:
 	bool addEdge(const VertexInfo &sourc, const VertexInfo &dest, double w);
 	bool addEdge(const VertexInfo &sourc, const VertexInfo &dest);
 	int getNumVertex() const;
+
 	vector<Vertex *> getVertexSet() const;
 
 	void SCC();
+	vector<vector<unsigned long>> getSCCs();
 
 	Vertex * initSingleSource(const VertexInfo &origin);
 	bool relax(Vertex *v, Vertex *w, double weight);
