@@ -13,7 +13,7 @@
 
 using namespace std;
 
-void firstIteration(Graph graph, VertexInfo start, vector<VertexInfo> pois, VertexInfo finish){
+vector<VertexInfo> dijkstraShortestRoute(Graph graph, VertexInfo start, vector<VertexInfo> pois, VertexInfo finish){
 
 	vector<VertexInfo> route;
 	vector<VertexInfo> shortest_path;
@@ -33,6 +33,8 @@ void firstIteration(Graph graph, VertexInfo start, vector<VertexInfo> pois, Vert
 				shortest_path.push_back(tmp_path.at(j));
 		}
 	}
+
+	return shortest_path;
 }
 
 template <class T>

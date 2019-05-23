@@ -2,6 +2,8 @@
 #include "map.h"
 #include "MutablePriorityQueue.h"
 #include "VertexInfo.h"
+#include "graphviewer.h"
+#include "citySightseeing.h"
 
 #include <iostream>
 #include <string>
@@ -16,6 +18,8 @@ int main(){
 	cout << " ----------------" << endl;
 	cout << "|CITY SIGHTSEEING|" << endl;
 	cout << " ----------------" << endl << endl;
+
+	GraphViewer *gv = new GraphViewer(2000, 2000, false);
 
 	int option;
 	Graph graph;
@@ -48,19 +52,40 @@ int main(){
 		}
 		case 2:
 			break;
-		case 3:
+		case 3:{
 			if(graph.getNumVertex() == 0){
 				cout << "Graph doesn't exist yet!" << endl;
 				break;
 			}
 			graph.SCC();
+
+			//TEST DIJKSTA
+			VertexInfo v(96499474);
+			gv->setVertexColor(96499474, "blue");
+			VertexInfo v1(25504017);
+			gv->setVertexColor(25504017, "blue");
+			VertexInfo v2(126542183);
+			gv->setVertexColor(126542183, "blue");
+			VertexInfo v3(286969785);
+			gv->setVertexColor(286969785, "blue");
+			VertexInfo v4(343646761);
+			gv->setVertexColor(343646761, "blue");
+			VertexInfo v5(311886864);
+			gv->setVertexColor(311886864, "blue");
+			vector<VertexInfo> vec = {v1, v2, v3, v4};
+			vec = dijkstraShortestRoute(graph, v, vec, v5);
+			cout << vec.size() << endl;
+			for(size_t i = 0; i < vec.size(); i++){
+				gv->setVertexColor(vec[i].getID(), "black");
+			}
 			break;
+		}
 		case 4:
 			if(graph.getNumVertex() == 0){
 				cout << "Graph doesn't exist yet!" << endl;
 				break;
 			}
-			viewGraph(graph);
+			viewGraph(graph, gv);
 			break;
 		case 5:
 			break;

@@ -8,8 +8,9 @@
 
 #include "Graph.h"
 #include "VertexInfo.h"
+#include "graphviewer.h"
 
 Graph readGraph(std::string name);
-int viewGraph(Graph graph);
+int viewGraph(Graph graph, GraphViewer* gv);
 
 #endif
