@@ -30,8 +30,10 @@ vector<VertexInfo> dijkstraShortestRoute(Graph graph, VertexInfo start, vector<V
 		graph.dijkstraShortestPath(route.at(i));
 		vector<VertexInfo> tmp_path = graph.getPath(route.at(i), route.at(i+1));
 		for(size_t j = 0; j < tmp_path.size(); j++){
-			if(shortest_path.at(shortest_path.size()-1).getID() != tmp_path.at(j).getID())
+			if(shortest_path.size() == 0 || shortest_path.at(shortest_path.size()-1).getID() != tmp_path.at(j).getID()){
 				shortest_path.push_back(tmp_path.at(j));
+				//cout << "ola" << endl;
+			}
 		}
 	}
 
