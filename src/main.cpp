@@ -14,6 +14,16 @@ const int NUMBER_OF_OPTIONS = 5;
 
 void show_menu_options();
 
+void normalize(string &s){
+	for(unsigned int i = 0; i < s.length(); i++){
+		if(i == 0){
+			s[i] = toupper(s[i]);
+		}else{
+			s[i] = tolower(s[i]);
+		}
+	}
+}
+
 int main(){
 	cout << " ----------------" << endl;
 	cout << "|CITY SIGHTSEEING|" << endl;
@@ -38,6 +48,8 @@ int main(){
 				cout << "Invalid option. Try again: ";
 				continue;
 			}
+			cin.ignore(10000, '\n');
+			cin.clear();
 			break;
 		}while(true);
 		cout << endl << endl;;
@@ -46,7 +58,13 @@ int main(){
 		case 1:{
 			cout << "Name of the city: ";
 			string city;
-			cin >> city;
+			do{
+				getline(cin, city);
+				normalize(city);
+				if(city == "Aveiro" || city == "Braga" || city == "Coimbra" || city == "Ermesinde" || city == "Fafe" || city == "Gondomar" || city == "Lisboa" || city == "Maia" || city == "Porto" || city == "Portugal" || city == "Viseu")
+					break;
+				cout << "Invalid city name. Try again with one of the following:\n" << ">Aveiro\n>Braga\n>Coimbra\n>Ermesinde\n>Fafe\n>Gondomar\n>Lisboa\n>Maia\n>Porto\n>Portugal\n>Viseu\nName the city: ";
+			}while(true);
 			graph = readGraph(city);
 			break;
 		}
