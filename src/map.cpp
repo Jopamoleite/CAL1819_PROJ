@@ -11,7 +11,6 @@
 #include <vector>
 
 #include "map.h"
-#include "graphviewer.h"
 #include "edgetype.h"
 
 using namespace std;
@@ -123,9 +122,7 @@ Graph readGraph(string name){
     return g;
 }
 
-int viewGraph(Graph graph){
-
-	GraphViewer *gv = new GraphViewer(2000, 2000, false);
+int viewGraph(Graph graph, GraphViewer* gv){
 
 	gv->createWindow(2000, 2000);
 

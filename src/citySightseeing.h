@@ -11,9 +11,9 @@
 #include "Graph.h"
 #include "Person.h"
 
-std::vector<std::vector<unsigned long>> dividePeople(std::vector<Person> people, int bus_capacity);
+vector<VertexInfo> dijkstraShortestRoute(Graph graph, VertexInfo start, vector<VertexInfo> pois, VertexInfo finish);
 
-void firstIteration(Graph graph, VertexInfo start, vector<VertexInfo> pois, VertexInfo finish);
+std::vector<std::vector<unsigned long>> dividePeople(std::vector<Person> people, int bus_capacity);
 
 void secondIteration(VertexInfo start, std::vector<VertexInfo> pois, VertexInfo finish); //Caixeiro-viajante
 
