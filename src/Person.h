@@ -7,14 +7,12 @@
 
 #include <vector>
 
-#include "VertexInfo.h"
-
 class Person {
-	vector<VertexInfo> pois;
+	std::vector<unsigned long> pois;
 public:
-	Person(vector<VertexInfo> pois){ this->pois = pois;	}
-	vector<VertexInfo> getPois(){ return this->pois; }
-	void addPOI(VertexInfo poi) { this->pois.push_back(poi); }
+	Person(std::vector<unsigned long> pois){ this->pois = pois;	}
+	std::vector<unsigned long> getPois(){ return this->pois; }
+	void addPOI(unsigned long poi) { this->pois.push_back(poi); }
 };
 
 #endif /* SRC_PERSON_H_ */
