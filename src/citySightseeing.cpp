@@ -27,9 +27,12 @@ void firstIteration(Graph graph, VertexInfo start, vector<VertexInfo> pois, Vert
 	for(size_t i = 0; i < route.size()-1; i++){
 		graph.dijkstraShortestPath(route.at(i));
 		vector<VertexInfo> tmp_path = graph.getPath(route.at(i), route.at(i+1));
-		for(size_t j = 0; j < tmp_path.size(); j++)
-			shortest_path.push_back(tmp_path.at(j));
+		for(size_t j = 0; j < tmp_path.size(); j++){
+			if(shortest_path.at(shortest_path.size()-1).getID() != tmp_path.at(j).getID())
+				shortest_path.push_back(tmp_path.at(j));
+		}
 	}
+}
 /*template <class T>
 bool compareValues(const T &t1, const T &t2){
 	return t1.second.size() < t2.second.size();
