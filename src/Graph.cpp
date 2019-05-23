@@ -134,7 +134,8 @@ bool Graph::addEdge(const VertexInfo &sourc, const VertexInfo &dest) {
 
 Vertex * Graph::initSingleSource(const VertexInfo &origin) {
 	for (auto v : vertexSet) {
-		v->dist = INF;v->path = nullptr;
+		v->dist = INF;
+		v->path = nullptr;
 	}
 	auto s = findVertex(origin);
 	s->dist = 0;
@@ -161,7 +162,7 @@ bool Graph::relax(Vertex *v, Vertex *w, double weight) {
  * Dijkstra algorithm.
  */
 
-void Graph::dijkstraShortestPath(const VertexInfo &origin) {
+/*void Graph::dijkstraShortestPath(const VertexInfo &origin) {
 
 	for(unsigned int i = 0; i<vertexSet.size(); i++){
 		vertexSet.at(i)->dist = INF;
@@ -196,6 +197,24 @@ void Graph::dijkstraShortestPath(const VertexInfo &origin) {
 	}
 
 
+}*/
+
+void Graph::dijkstraShortestPath(const VertexInfo &origin) {
+	auto s = initSingleSource(origin);
+	MutablePriorityQueue<Vertex> q;
+	q.insert(s);
+	while( ! q.empty() ) {
+		auto v = q.extractMin();
+		for(auto e : v->adj) {
+			auto oldDist = e.dest->dist;
+			if (relax(v, e.dest, e.weight)) {
+				if (oldDist == INF)
+					q.insert(e.dest);
+				else
+					q.decreaseKey(e.dest);
+			}
+		}
+	}
 }
 
 

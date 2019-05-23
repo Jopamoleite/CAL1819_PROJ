@@ -8,10 +8,11 @@
 #include <vector>
 
 #include "VertexInfo.h"
+#include "Graph.h"
 
 void dividePeople();
 
-void firstIteration(VertexInfo start, vector<VertexInfo> pois, VertexInfo finish);
+void firstIteration(Graph graph, VertexInfo start, vector<VertexInfo> pois, VertexInfo finish);
 
 void secondIteration(VertexInfo start, vector<VertexInfo> pois, VertexInfo finish); //Caixeiro-viajante
 
