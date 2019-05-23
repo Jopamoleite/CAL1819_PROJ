@@ -66,18 +66,18 @@ int main(){
 			}*/
 
 			//TEST DIJKSTA
-			VertexInfo v(96499474);
-			gv->setVertexColor(96499474, "blue");
-			VertexInfo v1(25504017);
-			gv->setVertexColor(25504017, "blue");
-			VertexInfo v2(126542183);
-			gv->setVertexColor(126542183, "blue");
-			VertexInfo v3(286969785);
-			gv->setVertexColor(286969785, "blue");
-			VertexInfo v4(343646761);
-			gv->setVertexColor(343646761, "blue");
-			VertexInfo v5(311886864);
-			gv->setVertexColor(311886864, "blue");
+			VertexInfo v(25504003);
+			gv->setVertexColor(25504003, "blue");
+			VertexInfo v1(1243857999);
+			gv->setVertexColor(1243857999, "blue");
+			VertexInfo v2(25504005);
+			gv->setVertexColor(25504005, "blue");
+			VertexInfo v3(25504006);
+			gv->setVertexColor(25504006, "blue");
+			VertexInfo v4(281726450);
+			gv->setVertexColor(281726450, "blue");
+			VertexInfo v5(25504011);
+			gv->setVertexColor(25504011, "blue");
 			vector<VertexInfo> vec = {v1, v2, v3, v4};
 			vec = dijkstraShortestRoute(graph, v, vec, v5);
 			cout << vec.size() << endl;

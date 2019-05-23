@@ -23,6 +23,7 @@ vector<VertexInfo> dijkstraShortestRoute(Graph graph, VertexInfo start, vector<V
 		route.push_back(pois.at(i));
 	}
 
+
 	route.push_back(finish);
 
 	for(size_t i = 0; i < route.size()-1; i++){
