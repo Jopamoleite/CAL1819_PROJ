@@ -8,11 +8,12 @@
 #include <vector>
 
 #include "VertexInfo.h"
+#include "Person.h"
 
-void dividePeople();
+std::vector<std::vector<unsigned long>> dividePeople(std::vector<Person> people, int bus_capacity);
 
-void firstIteration(VertexInfo start, vector<VertexInfo> pois, VertexInfo finish);
+void firstIteration(VertexInfo start, std::vector<VertexInfo> pois, VertexInfo finish);
 
-void secondIteration(VertexInfo start, vector<VertexInfo> pois, VertexInfo finish); //Caixeiro-viajante
+void secondIteration(VertexInfo start, std::vector<VertexInfo> pois, VertexInfo finish); //Caixeiro-viajante
 
 #endif /* SRC_CITYSIGHTSEEING_H_ */

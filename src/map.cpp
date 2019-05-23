@@ -7,7 +7,6 @@
 #include <fstream>
 #include <iostream>
 #include <string>
-#include <time.h>
 #include <thread>
 #include <vector>
 
@@ -38,8 +37,7 @@ Graph readGraph(string name){
     double X, Y, lat, lon;
 
     //vector<thread> threads;
-    time_t tempo = time(NULL);
-    cout << "Begin: 0" << endl;
+
     while(lines > 0){
         getline(f, file_line);
         file_line = file_line.substr(1);
@@ -64,7 +62,7 @@ Graph readGraph(string name){
     /*for(vector<thread>::iterator it = threads.begin(); it != threads.end(); it++){
     	(*it).join();
     }*/
-    cout << "Read Nodes: " << time(NULL)-tempo << endl;
+
     f.close();
     f1.close();
 
@@ -92,7 +90,6 @@ Graph readGraph(string name){
         lines--;
     }
 
-    cout << "Read Edges: " <<  time(NULL)-tempo << endl;
     f.close();
 
     f.open(map_dir+"T03_tags_"+name+".txt");
@@ -121,7 +118,6 @@ Graph readGraph(string name){
 
         lines--;
     }
-    cout << "Finished: " << time(NULL)-tempo << endl;
 
     f.close();
     return g;
