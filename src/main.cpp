@@ -100,7 +100,8 @@ int main(){
 			vec = dijkstraShortestRoute(graph, v, vec, v5);
 			cout << vec.size() << endl;
 			for(size_t i = 0; i < vec.size(); i++){
-				gv->setVertexColor(vec[i].getID(), "black");
+				if(!(vec[i] == v) && !(vec[i] == v1) && !(vec[i] == v2) && !(vec[i] == v3) && !(vec[i] == v4) && !(vec[i] == v5))
+					gv->setVertexColor(vec[i].getID(), "black");
 			}
 			break;
 		}
@@ -119,7 +120,6 @@ int main(){
 		}
 	}while(option != NUMBER_OF_OPTIONS);
 
-	getchar();
 	return 0;
 }
 
