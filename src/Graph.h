@@ -41,7 +41,7 @@ public:
 	Vertex(VertexInfo in);
 	bool operator<(Vertex & vertex) const; // // required by MutablePriorityQueue
 	VertexInfo getInfo() const;
-	void setInfo(const VertexInfo);
+	void setInfo(const VertexInfo info);
 	double getDist() const;
 	Vertex *getPath() const;
 	vector<Edge> getAdjEdges() const;
