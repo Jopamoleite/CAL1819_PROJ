@@ -104,6 +104,7 @@ public:
 	bool relax(Vertex *v, Vertex *w, double weight);
 
 	void dijkstraShortestPath(const VertexInfo &origin, const VertexInfo &dest);
+	vector<VertexInfo> dijkstraPathToNearestPOI(const VertexInfo &origin, const VertexInfo &dest, const vector<VertexInfo> &pois);
 	void unweightedShortestPath(const VertexInfo &s);
 	void bellmanFordShortestPath(const VertexInfo &s);
 	vector<VertexInfo> getPath(const VertexInfo &origin, const VertexInfo &dest) const;

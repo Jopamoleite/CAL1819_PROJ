@@ -39,4 +39,16 @@ class VertexInfo{
         double operator-(const VertexInfo& v) const;
 };
 
+struct VertexInfoHash{
+	size_t operator()(const VertexInfo & obj) const {
+		return hash<int>()(obj.getID());
+	}
+};
+
+struct VertexInfoComparator{
+	bool operator()(const VertexInfo & obj1, const VertexInfo & obj2) const{
+	    return (obj1.getID() == obj2.getID());
+	}
+};
+
 #endif

@@ -36,10 +36,7 @@ void VertexInfo::addTag(string tag){
 }
 
 bool VertexInfo::operator== (const VertexInfo & obj) const{
-	if(this->getID() == obj.getID()){
-		return true;
-	}
-	return false;
+	return (this->getID() == obj.getID());
 }
 
 double VertexInfo::operator-(const VertexInfo& v) const{

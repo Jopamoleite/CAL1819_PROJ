@@ -83,7 +83,7 @@ int main(){
 				cout << endl;
 			}*/
 			//TEST DIVIDE PEOPLE
-			vector<unsigned long> pois = {25504003, 1243857999};
+			/*vector<unsigned long> pois = {25504003, 1243857999};
 			Person p(pois);
 			pois.clear();
 			pois = {25504003, 25504005};
@@ -105,10 +105,10 @@ int main(){
 					cout << div_pois[i][j] << " ";
 				}
 				cout << endl;
-			}
+			}*/
 
 			//TEST DIJKSTA
-			/*VertexInfo v(25504003);
+			VertexInfo v(25504003);
 			gv->setVertexColor(25504003, "blue");
 			VertexInfo v1(1243857999);
 			gv->setVertexColor(1243857999, "blue");
@@ -120,13 +120,13 @@ int main(){
 			gv->setVertexColor(281726450, "blue");
 			VertexInfo v5(25504011);
 			gv->setVertexColor(25504011, "blue");
-			vector<VertexInfo> vec = {v1, v2, v3, v4};
+			vector<VertexInfo> vec = {v1, v3, v2, v4};
 			vec = dijkstraShortestRoute(graph, v, vec, v5);
 			cout << vec.size() << endl;
 			for(size_t i = 0; i < vec.size(); i++){
 				if(!(vec[i] == v) && !(vec[i] == v1) && !(vec[i] == v2) && !(vec[i] == v3) && !(vec[i] == v4) && !(vec[i] == v5))
 					gv->setVertexColor(vec[i].getID(), "black");
-			}*/
+			}
 			break;
 		}
 		case 4:

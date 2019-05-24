@@ -15,9 +15,9 @@ using namespace std;
 
 vector<VertexInfo> dijkstraShortestRoute(Graph graph, VertexInfo start, vector<VertexInfo> pois, VertexInfo finish){
 
-	vector<VertexInfo> route;
-	vector<VertexInfo> shortest_path;
-	route.push_back(start);
+	//vector<VertexInfo> route;
+	vector<VertexInfo> shortest_path = graph.dijkstraPathToNearestPOI(start, finish, pois);
+	/*route.push_back(start);
 
 	for(size_t i = 0; i < pois.size(); i++){
 		route.push_back(pois.at(i));
@@ -34,7 +34,7 @@ vector<VertexInfo> dijkstraShortestRoute(Graph graph, VertexInfo start, vector<V
 				shortest_path.push_back(tmp_path.at(j));
 			}
 		}
-	}
+	}*/
 
 	return shortest_path;
 }
