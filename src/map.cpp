@@ -152,11 +152,11 @@ int viewGraph(Graph graph, GraphViewer* gv){
 		currentEdges = currentVertex->getAdjEdges();
 
 		auxiliar_edges.insert(auxiliar_edges.end(), currentEdges.size(), *currentVertex);
-		edges.insert( edges.end(), currentEdges.begin(), currentEdges.end() );
+		edges.insert(edges.end(), currentEdges.begin(), currentEdges.end());
 	}
 
 	for(size_t i = 0; i < edges.size(); i++){
-		gv->addEdge(edgeID, auxiliar_edges[i].getInfo().getID(), edges[i].getDest()->getInfo().getID(), EdgeType::UNDIRECTED);
+		gv->addEdge(edgeID, auxiliar_edges[i].getInfo().getID(), edges[i].getDest()->getInfo().getID(), EdgeType::DIRECTED);
 		edgeID++;
 	}
 	/*for(size_t i = 0; i < vertexSet.size(); i++){
