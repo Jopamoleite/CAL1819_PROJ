@@ -13,7 +13,7 @@
 
 vector<VertexInfo> dijkstraShortestRoute(Graph graph, VertexInfo start, vector<VertexInfo> pois, VertexInfo finish);
 
-std::vector<std::vector<unsigned long>> dividePeople(std::vector<Person> people, int bus_capacity);
+std::vector<std::vector<unsigned long>> dividePeople(std::vector<Person> people, std::vector<unsigned long> pois, int bus_capacity);
 
 void secondIteration(VertexInfo start, std::vector<VertexInfo> pois, VertexInfo finish); //Caixeiro-viajante
 

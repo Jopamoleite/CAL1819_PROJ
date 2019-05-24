@@ -4,6 +4,7 @@
 #include "VertexInfo.h"
 #include "graphviewer.h"
 #include "citySightseeing.h"
+#include "Person.h"
 
 #include <iostream>
 #include <string>
@@ -28,6 +29,8 @@ int main(){
 	cout << " ----------------" << endl;
 	cout << "|CITY SIGHTSEEING|" << endl;
 	cout << " ----------------" << endl << endl;
+
+	Person::initialize_seq_id();
 
 	GraphViewer *gv = new GraphViewer(2000, 2000, false);
 
@@ -76,12 +79,12 @@ int main(){
 				break;
 			}
 			graph.SCC();
-			/*for(unsigned int i = 0; i < graph.getSCCs().size(); i++){
+			for(unsigned int i = 0; i < graph.getSCCs().size(); i++){
 				for(unsigned int j = 0; j < graph.getSCCs().at(i).size(); j++){
-					cout << graph.getSCCs().at(i).at(j) << " ";
+					gv->setVertexColor(graph.getSCCs().at(i).at(j), "red");
 				}
-				cout << endl;
-			}*/
+			}
+
 			//TEST DIVIDE PEOPLE
 			vector<unsigned long> pois = {25504003, 1243857999};
 			Person p(pois);
@@ -98,14 +101,14 @@ int main(){
 			pois = {281726450, 25504011};
 			Person p4(pois);
 			vector<Person> people = {p, p1, p2, p3, p4};
-			vector<vector<unsigned long>> div_pois = dividePeople(people, 3);
-			for(size_t i = 0; i < div_pois.size(); i++){
+			//vector<vector<unsigned long>> div_pois = dividePeople(people,{1, 2, 3} 3);
+			/*for(size_t i = 0; i < div_pois.size(); i++){
 				cout << "Path: ";
 				for(size_t j = 0; j < div_pois[i].size(); j++){
 					cout << div_pois[i][j] << " ";
 				}
 				cout << endl;
-			}
+			}*/
 
 			//TEST DIJKSTA
 			/*VertexInfo v(25504003);

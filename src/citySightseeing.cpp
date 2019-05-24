@@ -40,11 +40,7 @@ vector<VertexInfo> dijkstraShortestRoute(Graph graph, VertexInfo start, vector<V
 	return shortest_path;
 }
 
-template <class T>
-bool compareValues(const T &t1, const T &t2){
-	return t1.second.size() < t2.second.size();
-}
-
+/*
 class Helper{
 	unsigned long id;
 	vector<Person> people;
@@ -62,64 +58,10 @@ public:
 		}
 		return false;
 	}
-};
+};*/
 
-vector<vector<unsigned long>> dividePeople(vector<Person> people, int bus_capacity){
-	typedef unordered_map<unsigned long, vector<Person>, idHash, idHash> POIS_MAP;
+vector<vector<unsigned long>> dividePeople(vector<Person> people, vector<unsigned long> pois, int bus_capacity){
 
-	POIS_MAP pois_numbers;
-
-	for(size_t i = 0; i < people.size(); i++){
-		vector<unsigned long> pois = people[i].getPois();
-		for(size_t j = 0; j < pois.size(); j++){
-			try{
-				vector<Person>& person = pois_numbers.at(pois[j]);
-				person.push_back(people[i]);
-			}
-			catch(out_of_range &e){
-				vector<Person> v;
-				v.push_back(people[i]);
-				pair<unsigned long, vector<Person>> p = make_pair(pois[j], v);
-				pois_numbers.insert(p);
-			}
-		}
-	}
-
-	priority_queue<Helper> pq;
-	for(POIS_MAP::iterator it = pois_numbers.begin(); it != pois_numbers.end(); it++){
-		Helper h((*it).first, (*it).second);
-		pq.push(h);
-	}
-
-	vector<vector<unsigned long>> result;
-	vector<unsigned long> points;
-
-	while(!pq.empty()){
-		int cap = bus_capacity;
-		points.clear();
-		while(cap > 0){
-			Helper h = pq.top();
-			pq.pop();
-			vector<Person> vp = h.getPeople();
-			while(cap > 0 && vp.size() > 0){
-				Person p1 = vp.back();
-				vp.pop_back();
-				vector<unsigned long> pois = p1.getPois();
-				for(size_t i = 0; i < pois.size(); i++){
-					if(find(points.begin(), points.end(), pois[i]) == points.end()){
-						points.push_back(pois[i]);
-					}
-				}
-				cap--;
-			}
-
-			if(pq.empty()){
-				break;
-			}
-		}
-		result.push_back(points);
-	}
-	return result;
 }
 
 void secondIteration(VertexInfo start, vector<VertexInfo> pois, VertexInfo finish){
