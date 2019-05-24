@@ -162,51 +162,17 @@ bool Graph::relax(Vertex *v, Vertex *w, double weight) {
  * Dijkstra algorithm.
  */
 
-/*void Graph::dijkstraShortestPath(const VertexInfo &origin) {
-
-	for(unsigned int i = 0; i<vertexSet.size(); i++){
-		vertexSet.at(i)->dist = INF;
-		vertexSet.at(i)->path = NULL;
-		vertexSet.at(i)->processing = false;
-		vertexSet.at(i)->visited = false;
-	}
-
-	Vertex* start = findVertex(origin);
-	MutablePriorityQueue<Vertex> q;
-	q.insert(start);
-	start->dist = 0;
-
-	Vertex *v;
-
-	while (!q.empty()){
-		v = q.extractMin();
-		v->processing = false;
-		v->visited = true;
-		for(unsigned int i = 0; i<v->adj.size(); i++){
-			if(v->adj.at(i).dest->dist > v->dist + v->adj.at(i).weight){
-				v->adj.at(i).dest->dist = v->dist + v->adj.at(i).weight;
-				v->adj.at(i).dest->path = v;
-				if(!v->adj.at(i).dest->processing){
-					q.insert(v->adj.at(i).dest->path);
-					v->adj.at(i).dest->processing = true;
-				}
-				else
-					q.decreaseKey(v->adj.at(i).dest->path);
-			}
-		}
-	}
-
-
-}*/
-
-void Graph::dijkstraShortestPath(const VertexInfo &origin) {
+void Graph::dijkstraShortestPath(const VertexInfo &origin, const VertexInfo &dest) {
 	auto s = initSingleSource(origin);
+	bool found_dest = false;
 	MutablePriorityQueue<Vertex> q;
 	q.insert(s);
-	while( ! q.empty() ) {
+	while( !q.empty() && !found_dest) {
 		auto v = q.extractMin();
 		for(auto e : v->adj) {
 			auto oldDist = e.dest->dist;
+			if(e.dest->getInfo() == dest)
+				found_dest = true;
 			if (relax(v, e.dest, e.weight)) {
 				if (oldDist == INF)
 					q.insert(e.dest);

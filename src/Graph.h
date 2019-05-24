@@ -103,14 +103,11 @@ public:
 	Vertex * initSingleSource(const VertexInfo &origin);
 	bool relax(Vertex *v, Vertex *w, double weight);
 
-	// Fp05 - single source
-	void dijkstraShortestPath(const VertexInfo &s);
-	void dijkstraShortestPathOld(const VertexInfo &s);
+	void dijkstraShortestPath(const VertexInfo &origin, const VertexInfo &dest);
 	void unweightedShortestPath(const VertexInfo &s);
 	void bellmanFordShortestPath(const VertexInfo &s);
 	vector<VertexInfo> getPath(const VertexInfo &origin, const VertexInfo &dest) const;
 
-	// Fp05 - all pairs
 	void floydWarshallShortestPath();
 	vector<VertexInfo> getfloydWarshallPath(const VertexInfo &origin, const VertexInfo &dest) const;
 
