@@ -13,8 +13,10 @@ class Person {
 	static unsigned long seq_id;
 public:
 	static void initialize_seq_id() { Person::seq_id = 1; }
+	Person();
 	Person(std::vector<unsigned long> pois){ this->pois = pois;	this->id = Person::seq_id; Person::seq_id++;}
 	std::vector<unsigned long> getPois() const{ return this->pois; }
+	std::vector<unsigned long> getPois() { return this->pois; }
 	void addPOI(const unsigned long poi) { this->pois.push_back(poi); }
 	bool operator<(const Person& p1) const{
 		if(this->pois.size() > p1.getPois().size())
@@ -22,11 +24,17 @@ public:
 		return false;
 	}
 	unsigned int getID() const { return this->id; }
+	unsigned int getID() { return this->id; }
 	bool operator == (const Person &p1) const{
 		if(this->id == p1.getID())
 			return true;
 		return false;
 	}
+	/*Person operator = (const Person & p1) {
+		this->id = p1.getID();
+		this->pois = p1.getPois();
+		return *this;
+	}*/
 };
 
 #endif /* SRC_PERSON_H_ */
