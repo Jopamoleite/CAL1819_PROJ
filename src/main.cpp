@@ -12,6 +12,7 @@
 using namespace std;
 
 const int NUMBER_OF_OPTIONS = 5;
+unsigned long Person::seq_id = 1;
 
 void show_menu_options();
 
@@ -29,8 +30,6 @@ int main(){
 	cout << " ----------------" << endl;
 	cout << "|CITY SIGHTSEEING|" << endl;
 	cout << " ----------------" << endl << endl;
-
-	Person::initialize_seq_id();
 
 	GraphViewer *gv = new GraphViewer(2000, 2000, false);
 

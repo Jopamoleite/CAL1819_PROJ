@@ -12,8 +12,7 @@ class Person {
 	unsigned long id;
 	static unsigned long seq_id;
 public:
-	static void initialize_seq_id() { Person::seq_id = 1; }
-	Person();
+	Person(){this->id = Person::seq_id; Person::seq_id++;}
 	Person(std::vector<unsigned long> pois){ this->pois = pois;	this->id = Person::seq_id; Person::seq_id++;}
 	std::vector<unsigned long> getPois() const{ return this->pois; }
 	std::vector<unsigned long> getPois() { return this->pois; }
