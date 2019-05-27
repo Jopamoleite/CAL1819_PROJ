@@ -65,25 +65,6 @@ vector<VertexInfo> dijkstraShortestRoute(Graph graph, VertexInfo start, vector<V
 	//return shortest_path;
 }
 
-/*
-class Helper{
-	unsigned long id;
-	vector<Person> people;
-public:
-	Helper(unsigned long id, vector<Person> people){
-		this->id = id;
-		this->people = people;
-	}
-	unsigned long getID() const { return this->id; }
-	vector<Person> getPeople() const { return this->people; }
-	void addPerson(const Person p) { this->people.push_back(p); }
-	bool operator<(const Helper& h1) const{
-		if(this->people.size() < h1.getPeople().size()){
-			return true;
-		}
-		return false;
-	}
-};*/
 
 vector<vector<unsigned long>> dividePeople(vector<Person> people, vector<unsigned long> pois, int bus_capacity){
 
