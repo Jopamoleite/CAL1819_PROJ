@@ -18,6 +18,8 @@ class VertexInfo{
         double distance_between_points(const VertexInfo &v) const;
 
     public:
+        VertexInfo();
+
         VertexInfo(unsigned long id);
 
         VertexInfo(unsigned long id, double x, double y, double latitude, double longitude);

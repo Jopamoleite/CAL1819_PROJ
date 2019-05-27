@@ -4,7 +4,6 @@
 #include <iostream>
 #include <algorithm>
 #include <utility>
-#include <unordered_set>
 
 #include "Graph.h"
 
@@ -184,26 +183,21 @@ void Graph::dijkstraShortestPath(const VertexInfo &origin, const VertexInfo &des
 	}
 }
 
-vector<VertexInfo> Graph::dijkstraPathToNearestPOI(const VertexInfo &origin, const VertexInfo &dest, const vector<VertexInfo> &pois) {
-	unordered_set<VertexInfo, VertexInfoHash, VertexInfoComparator> pois_set;
-	vector<VertexInfo> shortest_path;
+void Graph::dijkstraPathToNearestPOI(const VertexInfo &origin, unordered_set<VertexInfo, VertexInfoHash, VertexInfoComparator> &pois, VertexInfo &last_found, vector<VertexInfo> &shortest_path){
 	vector<VertexInfo> tmp;
-
-	for(size_t i = 0; i < pois.size(); i++)
-		pois_set.insert(pois.at(i));
 
 	auto s = initSingleSource(origin);
 	bool found = false;
 	MutablePriorityQueue<Vertex> q;
-	VertexInfo last_found = VertexInfo(0);
+	last_found = VertexInfo(0);
 	q.insert(s);
 	while( !q.empty() && !found) { //stops when nearest POI is found
 		auto v = q.extractMin();
 		for(auto e : v->adj) {
 			auto oldDist = e.dest->dist;
-			if(pois_set.count(e.dest->getInfo())){
+			if(pois.count(e.dest->getInfo())){
 				found = true;
-				pois_set.erase(e.dest->getInfo());
+				pois.erase(e.dest->getInfo());
 				last_found = e.dest->getInfo();
 			}
 			if (relax(v, e.dest, e.weight)) {
@@ -215,51 +209,12 @@ vector<VertexInfo> Graph::dijkstraPathToNearestPOI(const VertexInfo &origin, con
 		}
 	}
 	tmp = getPath(origin, last_found);
-	for(size_t j = 0; j < tmp.size(); j++){
-		if(shortest_path.size() == 0 || shortest_path.at(shortest_path.size()-1).getID() != tmp.at(j).getID()){
-			shortest_path.push_back(tmp.at(j));
-		}
-	}
-
-	found = false;
-
-	while(!pois_set.empty()){
-		s = initSingleSource(last_found);
-		q.insert(s);
-		while(!q.empty()) {
-			auto v = q.extractMin();
-			for(auto e : v->adj) {
-				auto oldDist = e.dest->dist;
-				if(pois_set.count(e.dest->getInfo())){
-					pois_set.erase(e.dest->getInfo());
-					last_found = e.dest->getInfo();
-				}
-				if (relax(v, e.dest, e.weight)) {
-					if (oldDist == INF)
-						q.insert(e.dest);
-					else
-						q.decreaseKey(e.dest);
-				}
-			}
-		}
-		tmp = getPath(origin, last_found);
-			for(size_t j = 0; j < tmp.size(); j++){
-				if(shortest_path.size() == 0 || shortest_path.at(shortest_path.size()-1).getID() != tmp.at(j).getID()){
-					shortest_path.push_back(tmp.at(j));
-				}
-			}
-	}
-
-	dijkstraShortestPath(last_found, dest);
-	tmp = getPath(last_found, dest);
 
 	for(size_t j = 0; j < tmp.size(); j++){
 		if(shortest_path.size() == 0 || shortest_path.at(shortest_path.size()-1).getID() != tmp.at(j).getID()){
 			shortest_path.push_back(tmp.at(j));
 		}
 	}
-
-	return shortest_path;
 }
 
 vector<VertexInfo> Graph::getPath(const VertexInfo &origin, const VertexInfo &dest) const{

@@ -11,6 +11,15 @@ double VertexInfo::distance_between_points(const VertexInfo &v) const{
 	return sqrt(pow(this->getX()-v.getX(), 2) + pow(this->getY()-v.getY(), 2));
 }
 
+VertexInfo::VertexInfo(){
+	this->id = 0;
+	this->x = 0;
+	this->y = 0;
+	this->latitude = 0;
+	this->longitude = 0;
+	this->isPOI = false;
+}
+
 VertexInfo::VertexInfo(unsigned long id){
 	this->id = id;
 	this->x = 0;

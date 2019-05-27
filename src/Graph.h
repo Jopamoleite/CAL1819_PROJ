@@ -11,6 +11,7 @@
 #include <limits>
 #include <cmath>
 #include <unordered_map>
+#include <unordered_set>
 
 #include "MutablePriorityQueue.h"
 #include "VertexInfo.h"
@@ -104,7 +105,7 @@ public:
 	bool relax(Vertex *v, Vertex *w, double weight);
 
 	void dijkstraShortestPath(const VertexInfo &origin, const VertexInfo &dest);
-	vector<VertexInfo> dijkstraPathToNearestPOI(const VertexInfo &origin, const VertexInfo &dest, const vector<VertexInfo> &pois);
+	void dijkstraPathToNearestPOI(const VertexInfo &origin, unordered_set<VertexInfo, VertexInfoHash, VertexInfoComparator> &pois, VertexInfo &last_found, vector<VertexInfo> &shortest_path);
 	void unweightedShortestPath(const VertexInfo &s);
 	void bellmanFordShortestPath(const VertexInfo &s);
 	vector<VertexInfo> getPath(const VertexInfo &origin, const VertexInfo &dest) const;

@@ -7,6 +7,7 @@
 #include <queue>
 #include <utility>
 #include <algorithm>
+#include <unordered_set>
 
 #include "citySightseeing.h"
 #include "Graph.h"
@@ -15,13 +16,38 @@ using namespace std;
 
 vector<VertexInfo> dijkstraShortestRoute(Graph graph, VertexInfo start, vector<VertexInfo> pois, VertexInfo finish){
 
-	//vector<VertexInfo> route;
-	vector<VertexInfo> shortest_path = graph.dijkstraPathToNearestPOI(start, finish, pois);
+	vector<VertexInfo> tmp;
+	vector<VertexInfo> shortest_path;
+	unordered_set<VertexInfo, VertexInfoHash, VertexInfoComparator> pois_set;
+	VertexInfo last_found;
+
+	for(size_t i = 0; i < pois.size(); i++)
+			pois_set.insert(pois.at(i));
+
+	graph.dijkstraPathToNearestPOI(start, pois_set, last_found, shortest_path);
+
+	while(!pois_set.empty()){
+		start = last_found;
+		graph.dijkstraPathToNearestPOI(start, pois_set, last_found, shortest_path);
+	}
+
+	graph.dijkstraShortestPath(last_found, finish);
+	tmp = graph.getPath(last_found, finish);
+
+	for(size_t j = 0; j < tmp.size(); j++){
+		if(shortest_path.size() == 0 || shortest_path.at(shortest_path.size()-1).getID() != tmp.at(j).getID()){
+			shortest_path.push_back(tmp.at(j));
+		}
+	}
+
+	return shortest_path;
+
 	/*route.push_back(start);
 
 	for(size_t i = 0; i < pois.size(); i++){
 		route.push_back(pois.at(i));
 	}
+
 
 
 	route.push_back(finish);
@@ -36,7 +62,7 @@ vector<VertexInfo> dijkstraShortestRoute(Graph graph, VertexInfo start, vector<V
 		}
 	}*/
 
-	return shortest_path;
+	//return shortest_path;
 }
 
 /*
