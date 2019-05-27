@@ -28,6 +28,8 @@ class VertexInfo{
 
         double getY() const {return y;}
 
+        bool getIsPOI() const {return isPOI;}
+
         double getLatitude() const { return latitude; }
 
         double getLongitude() const { return longitude; }
