@@ -11,6 +11,7 @@
 
 #include "citySightseeing.h"
 #include "Graph.h"
+#include "Bigraph.h"
 
 using namespace std;
 
@@ -65,28 +66,26 @@ vector<VertexInfo> dijkstraShortestRoute(Graph graph, VertexInfo start, vector<V
 	//return shortest_path;
 }
 
-/*
-class Helper{
-	unsigned long id;
-	vector<Person> people;
-public:
-	Helper(unsigned long id, vector<Person> people){
-		this->id = id;
-		this->people = people;
-	}
-	unsigned long getID() const { return this->id; }
-	vector<Person> getPeople() const { return this->people; }
-	void addPerson(const Person p) { this->people.push_back(p); }
-	bool operator<(const Helper& h1) const{
-		if(this->people.size() < h1.getPeople().size()){
-			return true;
-		}
-		return false;
-	}
-};*/
 
 vector<vector<unsigned long>> dividePeople(vector<Person> people, vector<unsigned long> pois, int bus_capacity){
+	Bigraph graph;
+	for(size_t i = 0; i < pois.size(); i++){
+		graph.addPOIVertex(pois[i]);
+	}
+	for(size_t i = 0; i < people.size(); i++){
+		graph.addPersonVertex(people[i]);
+		vector<unsigned long> vp = people[i].getPois();
+		for(size_t j = 0; j < vp.size(); j++){
+			graph.addBigraphEdge(people[i], vp[j]);
+		}
+	}
 
+	vector<vector<unsigned long>> result;
+	pair<vector<unsigned long>, vector<Person>> p = graph.getPeopleForBus();
+
+	result.push_back(p.first);
+
+	return result;
 }
 
 void secondIteration(VertexInfo start, vector<VertexInfo> pois, VertexInfo finish){
