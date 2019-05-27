@@ -11,11 +11,10 @@
 #include <limits>
 #include <cmath>
 #include <unordered_map>
+#include <utility>
 
 #include "MutablePriorityQueue.h"
 #include "Person.h"
-
-using namespace std;
 
 class BigraphEdge;
 class Bigraph;
@@ -28,6 +27,7 @@ class POIVertex;
 
 class PersonVertex {
 	Person info;                // contents
+	std::vector<BigraphEdge*> outgoing;
 	bool visited = false;          // auxiliary field
 	double dist = 0;
 	PersonVertex *path = NULL;
@@ -43,6 +43,7 @@ public:
 	void setInfo(const Person p);
 	double getDist() const;
 	PersonVertex *getPath() const;
+	void addOutgoingEdge(BigraphEdge *be);
 	friend class Bigraph;
 	friend class MutablePriorityQueue<PersonVertex>;
 };
@@ -51,6 +52,7 @@ public:
 
 class POIVertex {
 	unsigned long info;                // contents
+	std::vector<BigraphEdge*> incoming;
 	bool visited = false;          // auxiliary field
 	double dist = 0;
 	POIVertex *path = NULL;
@@ -66,6 +68,7 @@ public:
 	void setInfo(const unsigned long p);
 	double getDist() const;
 	POIVertex *getPath() const;
+	void addIncomingEdge(BigraphEdge *be);
 	friend class Bigraph;
 	friend class MutablePriorityQueue<POIVertex>;
 };
@@ -89,7 +92,7 @@ public:
 
 /*************************** Bigraph  **************************/
 
-struct idHash
+struct bigraph_idHash
 {
 	int operator() (const unsigned long & id) const
 	{
@@ -114,30 +117,33 @@ struct personHash{
 	}
 };
 
-typedef unordered_map<unsigned long, int, idHash, idHash> idHashTable;
-typedef unordered_map<Person, int, personHash, personHash> personHashTable;
+typedef std::unordered_map<unsigned long, int, bigraph_idHash, bigraph_idHash> bigraph_idHashTable;
+typedef std::unordered_map<Person, int, personHash, personHash> personHashTable;
 
 class Bigraph {
-	vector<PersonVertex *> people;    // people set
-	vector<POIVertex *> pois; 		  // pois set
-	vector<BigraphEdge> edges;		  // bigraph edges
+	std::vector<PersonVertex *> people;    // people set
+	std::vector<POIVertex *> pois; 		  // pois set
+	std::vector<BigraphEdge> edges;		  // bigraph edges
 
 	personHashTable personIds;
-	idHashTable poisIds;
+	bigraph_idHashTable poisIds;
 
 public:
 	PersonVertex *findPersonVertex(const Person &in);
 	POIVertex *findPOIVertex(const unsigned long &in);
 	bool addPersonVertex(const Person &in);
 	bool addPOIVertex(const unsigned long &in);
+	bool addBigraphEdge(const Person &person, const unsigned long &poi);
 	int getNumPersonVertex() const;
 	int getNumPOIVertex() const;
 
-	vector<PersonVertex *> getPeople() const;
-	vector<POIVertex *> getPOIs() const;
+	std::vector<PersonVertex *> getPeople() const;
+	std::vector<POIVertex *> getPOIs() const;
 
 	PersonVertex * initSingleSource(const Person &origin);
 	POIVertex * initSingleSource(const unsigned long &origin);
+
+	std::pair<std::vector<unsigned long>, std::vector<Person>>getPeopleForBus(int bus_capacity = INT_MAX);
 };
 
 

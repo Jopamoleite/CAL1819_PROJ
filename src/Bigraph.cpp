@@ -3,9 +3,10 @@
  */
 
 #include "Bigraph.h"
-#include "Person.h"
 
+#include <unordered_set>
 #include <utility>
+#include <limits.h>
 
 using namespace std;
 
@@ -33,6 +34,10 @@ PersonVertex* PersonVertex::getPath() const {
 	return this->path;
 }
 
+void PersonVertex::addOutgoingEdge(BigraphEdge *be){
+	this->outgoing.push_back(be);
+}
+
 POIVertex::POIVertex(unsigned long in) {
 	this->info = in;
 }
@@ -55,6 +60,10 @@ double POIVertex::getDist() const {
 
 POIVertex *POIVertex::getPath() const {
 	return this->path;
+}
+
+void POIVertex::addIncomingEdge(BigraphEdge *be){
+	this->incoming.push_back(be);
 }
 
 BigraphEdge::BigraphEdge(PersonVertex* o, POIVertex *d, double w) {
@@ -148,5 +157,52 @@ POIVertex * Bigraph::initSingleSource(const unsigned long &origin) {
 	auto s = findPOIVertex(origin);
 	s->dist = 0;
 	return s;
+}
+
+bool Bigraph::addBigraphEdge(const Person &person, const unsigned long &poi){
+	PersonVertex* pev = findPersonVertex(person);
+	if(pev == NULL)
+		return false;
+	POIVertex* poiv = findPOIVertex(poi);
+	if(poiv == NULL)
+		return false;
+	BigraphEdge* be = new BigraphEdge(pev, poiv, 1);
+	pev->addOutgoingEdge(be);
+	poiv->addIncomingEdge(be);
+	this->edges.push_back(*be);
+	return true;
+}
+
+pair<vector<unsigned long>, vector<Person>> Bigraph::getPeopleForBus(int bus_capacity){
+	vector<unsigned long> vpois;
+	vector<Person> vperson;
+
+	vector<POIVertex*>::iterator most_requested_point = this->pois.begin();
+	for(vector<POIVertex*>::iterator it = this->pois.begin()++; it != this->pois.end(); it++){
+		if((*it)->incoming.size() > (*most_requested_point)->incoming.size()){
+			most_requested_point = it;
+		}
+	}
+	vpois.push_back((*most_requested_point)->info);
+	vector<BigraphEdge*> be = (*most_requested_point)->incoming;
+	for(vector<BigraphEdge*>::iterator it = be.begin(); it != be.end(); it++){
+		vperson.push_back(((*it)->origin)->info);
+		vector<BigraphEdge*> person_be = ((*it)->origin)->outgoing;
+		for(vector<BigraphEdge*>::iterator it1 = person_be.begin(); it1 != person_be.end(); it1++){
+			vpois.push_back(((*it1)->dest)->info);
+			person_be.erase(it1);
+			it1--;
+		}
+		be.erase(it);
+		it--;
+	}
+
+	//Remove duplicates
+	unordered_set<unsigned long> us;
+	for (unsigned long i : vpois)
+	    us.insert(i);
+	vpois.assign(us.begin(), us.end());
+
+	return make_pair(vpois, vperson);
 }
 

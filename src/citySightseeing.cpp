@@ -11,6 +11,7 @@
 
 #include "citySightseeing.h"
 #include "Graph.h"
+#include "Bigraph.h"
 
 using namespace std;
 
@@ -67,7 +68,24 @@ vector<VertexInfo> dijkstraShortestRoute(Graph graph, VertexInfo start, vector<V
 
 
 vector<vector<unsigned long>> dividePeople(vector<Person> people, vector<unsigned long> pois, int bus_capacity){
+	Bigraph graph;
+	for(size_t i = 0; i < pois.size(); i++){
+		graph.addPOIVertex(pois[i]);
+	}
+	for(size_t i = 0; i < people.size(); i++){
+		graph.addPersonVertex(people[i]);
+		vector<unsigned long> vp = people[i].getPois();
+		for(size_t j = 0; j < vp.size(); j++){
+			graph.addBigraphEdge(people[i], vp[j]);
+		}
+	}
 
+	vector<vector<unsigned long>> result;
+	pair<vector<unsigned long>, vector<Person>> p = graph.getPeopleForBus();
+
+	result.push_back(p.first);
+
+	return result;
 }
 
 void secondIteration(VertexInfo start, vector<VertexInfo> pois, VertexInfo finish){

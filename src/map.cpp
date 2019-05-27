@@ -35,8 +35,6 @@ Graph readGraph(string name){
 	unsigned long ID;
 	double X, Y, lat, lon;
 
-	//vector<thread> threads;
-
 	while(lines > 0){
 		getline(f, file_line);
 		file_line = file_line.substr(1);
@@ -54,13 +52,9 @@ Graph readGraph(string name){
 
 		VertexInfo v(ID, X, Y, lat, lon);
 		g.addVertex(v);
-		//threads.push_back(thread(g.addVertex,v));
 
 		lines--;
 	}
-	/*for(vector<thread>::iterator it = threads.begin(); it != threads.end(); it++){
-    	(*it).join();
-    }*/
 
 	f.close();
 	f1.close();
@@ -122,13 +116,6 @@ Graph readGraph(string name){
 	return g;
 }
 
-template <class T>
-std::vector<T>& operator+=(std::vector<T>& lhs, std::initializer_list<T> l)
-{
-	lhs.insert(std::end(lhs), l);
-	return lhs;
-}
-
 int viewGraph(Graph graph, GraphViewer* gv){
 
 	gv->createWindow(2000, 2000);
@@ -159,14 +146,6 @@ int viewGraph(Graph graph, GraphViewer* gv){
 		gv->addEdge(edgeID, auxiliar_edges[i].getInfo().getID(), edges[i].getDest()->getInfo().getID(), EdgeType::DIRECTED);
 		edgeID++;
 	}
-	/*for(size_t i = 0; i < vertexSet.size(); i++){
-		currentVertex = vertexSet.at(i);
-		currentEdges = currentVertex->getAdjEdges();
-		for(size_t j = 0; j < currentEdges.size(); j++){
-			gv->addEdge(edgeID, currentVertex->getInfo().getID(), currentEdges.at(j).getDest()->getInfo().getID(), EdgeType::UNDIRECTED);
-			edgeID++;
-		}
-	}*/
 
 	gv->rearrange();
 
