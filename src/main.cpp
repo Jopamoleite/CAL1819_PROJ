@@ -400,6 +400,25 @@ int main() {
 					clock_t endDijkstra = clock();
 					double elapsed_secsDijkstra = double(endDijkstra - beginDijkstra) / CLOCKS_PER_SEC;
 					cout << "Elapsed time for Dijkstra: " << elapsed_secsDijkstra << endl;
+
+					for(size_t i = 0; i < pairs.size(); i++){
+						cout << "BUS No " << i+1 << endl;
+						cout << "   Persons: ";
+						for(size_t j = 0; j < pairs[i].second.size(); j++){
+							cout << pairs[i].second[j].getID() << " ";
+						}
+						cout << endl << "   Path: ";
+						for(size_t j = 0; j < path.size(); j++){
+							cout << path[j].getID() << " ";
+						}
+						cout << endl << "   Visited POIs: ";
+						for(size_t j = 0; j < pairs[i].first.size(); j++){
+							cout << pairs[i].first[j] << " ";
+						}
+						cout << endl << endl;
+					}
+
+
 					if(view.getViewerExists()){
 						for(size_t i = 0; i < path.size(); i++){
 							view.getGraphViewer()->setVertexColor(path[i].getID(), "black");
