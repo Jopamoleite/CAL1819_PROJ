@@ -5,6 +5,7 @@
 #include "graphviewer.h"
 #include "citySightseeing.h"
 #include "Person.h"
+#include "ViewableGraph.h"
 
 #include <iostream>
 #include <string>
@@ -33,11 +34,10 @@ int main() {
 	cout << "|CITY SIGHTSEEING|" << endl;
 	cout << " ----------------" << endl << endl;
 
-	GraphViewer *gv = new GraphViewer(2000, 2000, false);
-
 	int option;
 	int optionAdd;
 	Graph graph;
+	ViewableGraph view;
 	do {
 		show_menu_options();
 		cout << "Option: ";
@@ -72,6 +72,7 @@ int main() {
 			}while(true);
 			graph = readGraph(city);
 			graph.SCC();
+			view.setGraph(graph);
 			break;
 		}
 		case 2:{
@@ -261,12 +262,12 @@ int main() {
 			graph.SCC();
 			for(unsigned int i = 0; i < graph.getSCCs().size(); i++){
 				for(unsigned int j = 0; j < graph.getSCCs().at(i).size(); j++){
-					gv->setVertexColor(graph.getSCCs().at(i).at(j), "red");
+					view.getGraphViewer()->setVertexColor(graph.getSCCs().at(i).at(j), "red");
 				}
 			}
 
 			//TEST DIVIDE PEOPLE
-			vector<unsigned long> pois = {25504003, 1243857999};
+			/*vector<unsigned long> pois = {25504003, 1243857999};
 			vector<unsigned long> tmp_pois = {25504003, 1243857999, 25504005, 281726450, 25504011};
 			Person p(pois);
 			pois.clear();
@@ -289,28 +290,30 @@ int main() {
 					cout << div_pois[i][j] << " ";
 				}
 				cout << endl;
-			}
+			}*/
 
 			//TEST DIJKSTA
-			/*VertexInfo v(25504003);
-			gv->setVertexColor(25504003, "blue");
-			VertexInfo v1(1243857999);
-			gv->setVertexColor(1243857999, "blue");
-			VertexInfo v2(25504005);
-			gv->setVertexColor(25504005, "blue");
-			VertexInfo v3(25504006);
-			gv->setVertexColor(25504006, "blue");
-			VertexInfo v4(281726450);
-			gv->setVertexColor(281726450, "blue");
-			VertexInfo v5(25504011);
-			gv->setVertexColor(25504011, "blue");
+			VertexInfo v(1223751712);
+			view.getGraphViewer()->setVertexColor(1223751712, "blue");
+			VertexInfo v1(430012058);
+			view.getGraphViewer()->setVertexColor(430012058, "blue");
+			VertexInfo v2(430012046);
+			view.getGraphViewer()->setVertexColor(430012046, "blue");
+			VertexInfo v3(430012039);
+			view.getGraphViewer()->setVertexColor(430012039, "blue");
+			VertexInfo v4(1223751572);
+			view.getGraphViewer()->setVertexColor(1223751572, "blue");
+			VertexInfo v5(420807840);
+			view.getGraphViewer()->setVertexColor(420807840, "blue");
 			vector<VertexInfo> vec = {v1, v3, v2, v4};
 			vec = dijkstraShortestRoute(graph, v, vec, v5);
 			cout << vec.size() << endl;
 			for(size_t i = 0; i < vec.size(); i++){
 				if(!(vec[i] == v) && !(vec[i] == v1) && !(vec[i] == v2) && !(vec[i] == v3) && !(vec[i] == v4) && !(vec[i] == v5))
-					gv->setVertexColor(vec[i].getID(), "black");
-			}*/
+					view.getGraphViewer()->setVertexColor(vec[i].getID(), "black");
+				else cout << "POI: ";
+				cout << vec.at(i).getID() << endl;
+			}
 			break;
 		}
 		case 4:
@@ -318,10 +321,11 @@ int main() {
 				cout << "Graph doesn't exist yet!" << endl;
 				break;
 			}
-			viewGraph(graph, gv);
+			view = ViewableGraph(graph);
+			view.openViewGraph();
 			for (unsigned int i = 0; i < graph.getSCCs().size(); i++) {
 				for (unsigned int j = 0; j < graph.getSCCs().at(i).size(); j++) {
-					gv->setVertexColor(graph.getSCCs().at(i).at(j), "red");
+					view.getGraphViewer()->setVertexColor(graph.getSCCs().at(i).at(j), "red");
 				}
 			}
 			break;
