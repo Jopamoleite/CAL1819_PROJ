@@ -11,6 +11,6 @@
 #include "graphviewer.h"
 
 Graph readGraph(std::string name);
-int viewGraph(Graph graph, GraphViewer* gv);
+GraphViewer* viewGraph(Graph graph);
 
 #endif

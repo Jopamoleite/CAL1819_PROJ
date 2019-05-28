@@ -116,9 +116,15 @@ Graph readGraph(string name){
 	return g;
 }
 
-int viewGraph(Graph graph, GraphViewer* gv){
+GraphViewer* viewGraph(Graph graph){
+
+	GraphViewer *gv = new GraphViewer(2000, 2000, false);
+
+	gv->closeWindow();
 
 	gv->createWindow(2000, 2000);
+
+	gv->rearrange();
 
 	gv->defineEdgeColor("blue");
 	gv->defineVertexColor("yellow");
@@ -156,5 +162,5 @@ int viewGraph(Graph graph, GraphViewer* gv){
 
 	gv->rearrange();
 
-	return 0;
+	return gv;
 }
