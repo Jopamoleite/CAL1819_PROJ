@@ -68,7 +68,12 @@ vector<pair<vector<unsigned long>, vector<Person>>> dividePeople(vector<Person> 
 	}
 
 	while(numEdges > 0){
-		p = graph.getPeopleForBus(numEdges, bus_capacity);
+		if(bus_capacity < 0){
+			p = graph.getPeopleForBus(numEdges);
+		}
+		else{
+			p = graph.getPeopleForBus(numEdges, bus_capacity);
+		}
 		result.push_back(p);
 		numEdges = 0;
 		for(size_t i = 0; i < vpois.size(); i++){
@@ -79,6 +84,6 @@ vector<pair<vector<unsigned long>, vector<Person>>> dividePeople(vector<Person> 
 	return result;
 }
 
-void secondIteration(VertexInfo start, vector<VertexInfo> pois, VertexInfo finish){
+vector<VertexInfo> getInfoFromIDs(Graph graph, vector<unsigned long> v){
 
 }
