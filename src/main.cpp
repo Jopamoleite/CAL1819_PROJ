@@ -10,6 +10,7 @@
 #include <iostream>
 #include <string>
 #include <algorithm>
+#include <time.h>
 
 using namespace std;
 
@@ -41,6 +42,7 @@ int main() {
 	Graph graph;
 	ViewableGraph view;
 	vector<Person> people;
+	srand(time(NULL));
 
 	do {
 		show_start_options();
@@ -203,6 +205,27 @@ int main() {
 						}
 					}
 
+					vector<unsigned long> notPOI;
+					cout << "Not POI:";
+					for(unsigned int i = 0; i < SCC.size(); i++){
+						VertexInfo vert(SCC.at(i));
+						if(!graph.findVertex(vert)->getInfo().getIsPOI()){
+							cout << " " << SCC.at(i);
+							notPOI.push_back(SCC.at(i));
+						}
+					}
+					cout << endl;
+					int origin, destiny;
+					origin = rand() % notPOI.size();
+					destiny = rand() % notPOI.size();
+					cout << "Origin: " << origin << " Destiny: " << destiny << endl;
+
+					cout << "All nodes:";
+					for(unsigned int i = 0; i < SCC.size(); i++){
+							cout << " " << SCC.at(i);
+
+					}
+
 					if(!found){
 						cout << "Not found somehow?\n";
 						break;
@@ -363,8 +386,34 @@ int main() {
 				for(size_t j = 0; j < (pairs[i].first).size(); j++){
 					v.push_back(VertexInfo(pairs[i].first[j]));
 				}
-				//TODO Change v[0] and v[v.size()-1]
-				v = dijkstraShortestRoute(graph, v[0], v, v[v.size()-1]);
+
+				bool found = false;
+				vector<unsigned long> SCC;
+				for(unsigned int i = 0; i < graph.getSCCs().size(); i++){
+					if(found)
+						break;
+					for(unsigned int j = 0; j < graph.getSCCs().at(i).size(); j++){
+						if(graph.getSCCs().at(i).at(j) == v.at(0).getID()){
+							found = true;
+							SCC = graph.getSCCs().at(i);
+							break;
+						}
+					}
+				}
+				vector<unsigned long> notPOI;
+				for(unsigned int i = 0; i < SCC.size(); i++){
+					VertexInfo vert(SCC.at(i));
+					if(!graph.findVertex(vert)->getInfo().getIsPOI()){
+						notPOI.push_back(SCC.at(i));
+					}
+				}
+				int originIndex, destinyIndex;
+				originIndex = rand() % notPOI.size();
+				destinyIndex = rand() % notPOI.size();
+				VertexInfo origin(notPOI.at(originIndex));
+				VertexInfo destiny(notPOI.at(destinyIndex));
+
+				v = dijkstraShortestRoute(graph, origin , v, destiny);
 				for(size_t i = 0; i < v.size(); i++){
 					view.getGraphViewer()->setVertexColor(v[i].getID(), "black");
 				}
