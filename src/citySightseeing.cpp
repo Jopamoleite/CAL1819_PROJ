@@ -61,14 +61,14 @@ vector<vector<unsigned long>> dividePeople(vector<Person> people, vector<unsigne
 	vector<vector<unsigned long>> result;
 	pair<vector<unsigned long>, vector<Person>> p;
 
-	size_t numEdges = 0;
+	int numEdges = 0;
 	vector<POIVertex*> vpois = graph.getPOIs();
 	for(size_t i = 0; i < vpois.size(); i++){
 		numEdges += (vpois[i]->getIncoming()).size();
 	}
 
 	while(numEdges > 0){
-		p = graph.getPeopleForBus();
+		p = graph.getPeopleForBus(numEdges);
 		result.push_back(p.first);
 		numEdges = 0;
 		for(size_t i = 0; i < vpois.size(); i++){

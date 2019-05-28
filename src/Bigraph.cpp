@@ -194,7 +194,7 @@ bool Bigraph::addBigraphEdge(const Person &person, const unsigned long &poi){
 	return true;
 }
 
-pair<vector<unsigned long>, vector<Person>> Bigraph::getPeopleForBus(int bus_capacity){
+pair<vector<unsigned long>, vector<Person>> Bigraph::getPeopleForBus(int &numEdges, int bus_capacity){
 	if(this->edges.size() == 0){
 		cout << "NO MORE EDGES" << endl;
 		return pair<vector<unsigned long>, vector<Person>>();
@@ -202,38 +202,45 @@ pair<vector<unsigned long>, vector<Person>> Bigraph::getPeopleForBus(int bus_cap
 	vector<unsigned long> vpois;
 	vector<Person> vperson;
 
-	int actual_capacity;
-	size_t numEdges = 0; //TODO REDUZIR UM/DOIS CICLOS: passar e retornar o número de arestas que saem dos pois
+	//TODO REDUZIR UM/DOIS CICLOS: passar e retornar o número de arestas que saem dos pois
 
-	vector<POIVertex*>::iterator most_requested_point = (this->pois).begin();
-	for(vector<POIVertex*>::iterator it = (this->pois).begin()++; it != (this->pois).end(); it++){
-		if(((*it)->incoming).size() > ((*most_requested_point)->incoming).size()){
-			most_requested_point = it;
+	while(bus_capacity > 0 && numEdges > 0){
+		vector<POIVertex*>::iterator most_requested_point = (this->pois).begin();
+		for(vector<POIVertex*>::iterator it = (this->pois).begin()++; it != (this->pois).end(); it++){
+			if(((*it)->incoming).size() > ((*most_requested_point)->incoming).size()){
+				most_requested_point = it;
+			}
 		}
-	}
-	vector<BigraphEdge*> vbe;
-	vpois.push_back((*most_requested_point)->info);
-	for(vector<BigraphEdge*>::iterator it = ((*most_requested_point)->incoming).begin(); it != ((*most_requested_point)->incoming).end(); it++){
-		vperson.push_back(((*it)->origin)->info);
-		for(vector<BigraphEdge*>::iterator it1 = ((*it)->origin)->outgoing.begin(); it1 != (((*it)->origin)->outgoing).end(); it1++){
-			vpois.push_back(((*it1)->dest)->info);
-			vbe.push_back(*it1);
-			(((*it)->origin)->outgoing).erase(it1);
-			it1--;
-		}
-		((*most_requested_point)->incoming).erase(it);
-		it--;
-	}
 
-	for(vector<BigraphEdge*>::iterator it = vbe.begin(); it != vbe.end(); it++){
-		for(vector<BigraphEdge*>::iterator it1 = (*it)->dest->incoming.begin(); it1 != (*it)->dest->incoming.end(); it1++){
-			if(*it == *it1){
-				(*it)->dest->incoming.erase(it1);
+		vector<BigraphEdge*> vbe;
+		vpois.push_back((*most_requested_point)->info);
+		for(vector<BigraphEdge*>::iterator it = ((*most_requested_point)->incoming).begin(); it != ((*most_requested_point)->incoming).end(); it++){
+			vperson.push_back(((*it)->origin)->info);
+			bus_capacity--;
+			for(vector<BigraphEdge*>::iterator it1 = (((*it)->origin)->outgoing).begin(); it1 != (((*it)->origin)->outgoing).end(); it1++){
+				vpois.push_back(((*it1)->dest)->info);
+				vbe.push_back(*it1);
+				(((*it)->origin)->outgoing).erase(it1);
+				it1--;
+			}
+			numEdges--;
+			((*most_requested_point)->incoming).erase(it);
+			if(bus_capacity <= 0 || numEdges <= 0){
 				break;
+			}
+			it--;
+		}
+
+		for(vector<BigraphEdge*>::iterator it = vbe.begin(); it != vbe.end(); it++){
+			for(vector<BigraphEdge*>::iterator it1 = (*it)->dest->incoming.begin(); it1 != (*it)->dest->incoming.end(); it1++){
+				if(*it == *it1){
+					numEdges--;
+					((*it)->dest)->incoming.erase(it1);
+					break;
+				}
 			}
 		}
 	}
-
 
 	//Remove duplicates
 	unordered_set<unsigned long> us;
