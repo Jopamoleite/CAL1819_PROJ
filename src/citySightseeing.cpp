@@ -83,7 +83,3 @@ vector<pair<vector<unsigned long>, vector<Person>>> dividePeople(vector<Person> 
 
 	return result;
 }
-
-vector<VertexInfo> getInfoFromIDs(Graph graph, vector<unsigned long> v){
-
-}

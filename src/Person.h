@@ -14,6 +14,7 @@ class Person {
 public:
 	Person(){this->id = Person::seq_id; Person::seq_id++;}
 	Person(std::vector<unsigned long> pois){ this->pois = pois;	this->id = Person::seq_id; Person::seq_id++;}
+	Person(unsigned long id, std::vector<unsigned long> pois){ this->pois = pois; this->id = id; Person::seq_id = id+1; }
 	std::vector<unsigned long> getPois() const{ return this->pois; }
 	std::vector<unsigned long> getPois() { return this->pois; }
 	void addPOI(const unsigned long poi) { this->pois.push_back(poi); }
@@ -29,11 +30,6 @@ public:
 			return true;
 		return false;
 	}
-	/*Person operator = (const Person & p1) {
-		this->id = p1.getID();
-		this->pois = p1.getPois();
-		return *this;
-	}*/
 };
 
 #endif /* SRC_PERSON_H_ */

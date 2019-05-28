@@ -16,6 +16,4 @@ std::vector<VertexInfo> dijkstraShortestRoute(Graph graph, VertexInfo start, std
 
 std::vector<std::pair<std::vector<unsigned long>, std::vector<Person>>> dividePeople(std::vector<Person> people, std::vector<unsigned long> pois, int bus_capacity);
 
-void secondIteration(VertexInfo start, std::vector<VertexInfo> pois, VertexInfo finish); //Caixeiro-viajante
-
 #endif /* SRC_CITYSIGHTSEEING_H_ */
