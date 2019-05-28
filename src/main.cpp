@@ -295,11 +295,11 @@ int main() {
 			pois = {281726450, 25504011};
 			Person p4(pois);
 			vector<Person> people = {p, p1, p2, p3, p4};
-			vector<vector<unsigned long>> div_pois = dividePeople(people, tmp_pois, 0);
-			for(size_t i = 0; i < div_pois.size(); i++){
+			vector<pair<vector<unsigned long>, vector<Person>>> pairs = dividePeople(people, tmp_pois, 4);
+			for(size_t i = 0; i < pairs.size(); i++){
 				cout << "Path: ";
-				for(size_t j = 0; j < div_pois[i].size(); j++){
-					cout << div_pois[i][j] << " ";
+				for(size_t j = 0; j < (pairs[i].first).size(); j++){
+					cout << pairs[i].first[j] << " ";
 				}
 				cout << endl;
 			}

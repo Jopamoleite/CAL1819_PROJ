@@ -45,7 +45,7 @@ vector<VertexInfo> dijkstraShortestRoute(Graph graph, VertexInfo start, vector<V
 }
 
 
-vector<vector<unsigned long>> dividePeople(vector<Person> people, vector<unsigned long> pois, int bus_capacity){
+vector<pair<vector<unsigned long>, vector<Person>>> dividePeople(vector<Person> people, vector<unsigned long> pois, int bus_capacity){
 	Bigraph graph;
 	for(size_t i = 0; i < pois.size(); i++){
 		graph.addPOIVertex(pois[i]);
@@ -58,7 +58,7 @@ vector<vector<unsigned long>> dividePeople(vector<Person> people, vector<unsigne
 		}
 	}
 
-	vector<vector<unsigned long>> result;
+	vector<pair<vector<unsigned long>, vector<Person>>> result;
 	pair<vector<unsigned long>, vector<Person>> p;
 
 	int numEdges = 0;
@@ -68,8 +68,8 @@ vector<vector<unsigned long>> dividePeople(vector<Person> people, vector<unsigne
 	}
 
 	while(numEdges > 0){
-		p = graph.getPeopleForBus(numEdges);
-		result.push_back(p.first);
+		p = graph.getPeopleForBus(numEdges, bus_capacity);
+		result.push_back(p);
 		numEdges = 0;
 		for(size_t i = 0; i < vpois.size(); i++){
 			numEdges += (vpois[i]->getIncoming()).size();

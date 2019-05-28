@@ -6,14 +6,15 @@
 #define SRC_CITYSIGHTSEEING_H_
 
 #include <vector>
+#include <utility>
 
 #include "VertexInfo.h"
 #include "Graph.h"
 #include "Person.h"
 
-vector<VertexInfo> dijkstraShortestRoute(Graph graph, VertexInfo start, vector<VertexInfo> pois, VertexInfo finish);
+std::vector<VertexInfo> dijkstraShortestRoute(Graph graph, VertexInfo start, std::vector<VertexInfo> pois, VertexInfo finish);
 
-std::vector<std::vector<unsigned long>> dividePeople(std::vector<Person> people, std::vector<unsigned long> pois, int bus_capacity);
+std::vector<std::pair<std::vector<unsigned long>, std::vector<Person>>> dividePeople(std::vector<Person> people, std::vector<unsigned long> pois, int bus_capacity);
 
 void secondIteration(VertexInfo start, std::vector<VertexInfo> pois, VertexInfo finish); //Caixeiro-viajante
 

@@ -136,8 +136,15 @@ int viewGraph(Graph graph, GraphViewer* gv){
 	for(size_t i = 0; i < vertexSet.size(); i++){
 		currentVertex = vertexSet.at(i);
 		gv->addNode(currentVertex->getInfo().getID(), currentVertex->getInfo().getX()-offsetX, currentVertex->getInfo().getY()-offsetY);
+		/*if(currentVertex->getInfo().getIsPOI()){
+			if(currentVertex->getInfo().getTag() == "*"){
+				gv->setVertexIcon(currentVertex->getInfo().getID(), "tourism.jpg");
+			}
+			else{
+				gv->setVertexIcon(currentVertex->getInfo().getID(), currentVertex->getInfo().getTag()+".jpg");
+			}
+		}*/
 		currentEdges = currentVertex->getAdjEdges();
-
 		auxiliar_edges.insert(auxiliar_edges.end(), currentEdges.size(), *currentVertex);
 		edges.insert(edges.end(), currentEdges.begin(), currentEdges.end());
 	}

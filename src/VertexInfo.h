@@ -30,6 +30,8 @@ class VertexInfo{
 
         bool getIsPOI() const {return isPOI;}
 
+        string getTag() const { return tag; }
+
         double getLatitude() const { return latitude; }
 
         double getLongitude() const { return longitude; }
