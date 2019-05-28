@@ -66,9 +66,9 @@ int main() {
 			do{
 				getline(cin, city);
 				normalize(city);
-				if(city == "Aveiro" || city == "Braga" || city == "Coimbra" || city == "Ermesinde" || city == "Fafe" || city == "Gondomar" || city == "Lisboa" || city == "Maia" || city == "Porto" || city == "Portugal" || city == "Viseu")
+				if(city == "Aveiro" || city == "Braga" || city == "Coimbra" || city == "Ermesinde" || city == "Fafe" || city == "Gondomar" || city == "Lisboa" || city == "Maia" || city == "Porto"  || city == "Viseu")
 					break;
-				cout << "Invalid city name. Try again with one of the following:\n" << ">Aveiro\n>Braga\n>Coimbra\n>Ermesinde\n>Fafe\n>Gondomar\n>Lisboa\n>Maia\n>Porto\n>Portugal\n>Viseu\nName the city: ";
+				cout << "Invalid city name. Try again with one of the following:\n" << ">Aveiro\n>Braga\n>Coimbra\n>Ermesinde\n>Fafe\n>Gondomar\n>Lisboa\n>Maia\n>Porto\n>Viseu\nName the city: ";
 			}while(true);
 			graph = readGraph(city);
 			graph.SCC();
@@ -362,8 +362,7 @@ int main() {
 			}
 			viewGraph(graph, gv);
 			for (unsigned int i = 0; i < graph.getSCCs().size(); i++) {
-				for (unsigned int j = 0; j < graph.getSCCs().at(i).size();
-						j++) {
+				for (unsigned int j = 0; j < graph.getSCCs().at(i).size(); j++) {
 					gv->setVertexColor(graph.getSCCs().at(i).at(j), "red");
 				}
 			}
