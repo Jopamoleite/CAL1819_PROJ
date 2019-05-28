@@ -369,8 +369,60 @@ int main() {
 					view.getGraphViewer()->setVertexColor(v[i].getID(), "black");
 				}
 			}
+			break;
+		}
+		case 3:{
+			continue;
+		}
+		case 4:{
+			return 0;
+		}
+		}
+	} while (option != 4);
 
-		/*cout << "Option: ";
+	return 0;
+}
+
+void show_start_options() {
+	cout << "IMPORT GRAPH: " << endl;
+	cout << "   Select city: ";
+	/*	cout << "	2- Import Client Information;" << endl;
+	cout
+	<< "	3- Create Routes (make sure you have imported one graph and the client information);"
+	<< endl;
+	cout << "	4- See Imported City (make sure you have imported one graph);"
+			<< endl;
+	cout << "	5- Exit." << endl;*/
+}
+
+void show_person_options() {
+	cout << "PERSON OPTIONS: " << endl;
+	cout << "   1: Create tourist;" << endl;
+	cout << "   2: Import tourist from file;" << endl;
+	cout << "   3: Import new graph;" << endl;
+	cout << "   4: Exit." << endl;
+}
+
+void show_create_person_options(){
+	cout << "Options: " << endl;
+	cout << "   1: Add POI to Person;" << endl;
+	cout << "   2: See POI connected to existing ones;" << endl;
+	cout << "   3: Show all POIs connected to each other;" << endl;
+	cout << "   4: Add actual Person to the solution;" << endl;
+	cout << "   5: Save Persons to file and continue;" << endl;
+	cout << "   6: Go back to Person options;" << endl;
+	cout << "   7: Exit from program." << endl;
+}
+
+void show_route_options(){
+	cout << "CREATE ROUTE OPTIONS: " << endl;
+	cout << "   1: Show graph;" << endl;
+	cout << "   2: Divide people and create routes for buses;" << endl;
+	cout << "   3: Import new graph;" << endl;
+	cout << "   4: Exit from program." << endl;
+}
+
+/*cout << "Option: ";
 		do {
 			cin >> option;
 			if (cin.fail()) {
@@ -635,8 +687,8 @@ int main() {
 				cout << endl;
 			}*/
 
-			//TEST DIJKSTA
-			/*VertexInfo v(1223751712);
+//TEST DIJKSTA
+/*VertexInfo v(1223751712);
 			view.getGraphViewer()->setVertexColor(1223751712, "blue");
 			VertexInfo v1(430012058);
 			view.getGraphViewer()->setVertexColor(430012058, "blue");
@@ -678,48 +730,3 @@ int main() {
 			cerr << "ERROR!!!!" << endl;
 			return -1;
 		}*/
-		}
-		}
-	} while (option != 4);
-
-	return 0;
-}
-
-void show_start_options() {
-	cout << "IMPORT GRAPH: " << endl;
-	cout << "   Select city: ";
-	/*	cout << "	2- Import Client Information;" << endl;
-	cout
-	<< "	3- Create Routes (make sure you have imported one graph and the client information);"
-	<< endl;
-	cout << "	4- See Imported City (make sure you have imported one graph);"
-			<< endl;
-	cout << "	5- Exit." << endl;*/
-}
-
-void show_person_options() {
-	cout << "PERSON OPTIONS: " << endl;
-	cout << "   1: Create tourist;" << endl;
-	cout << "   2: Import tourist from file;" << endl;
-	cout << "   3: Import new graph;" << endl;
-	cout << "   4: Exit." << endl;
-}
-
-void show_create_person_options(){
-	cout << "Options: " << endl;
-	cout << "   1: Add POI to Person;" << endl;
-	cout << "   2: See POI connected to existing ones;" << endl;
-	cout << "   3: Show all POIs connected to each other;" << endl;
-	cout << "   4: Add actual Person to the solution;" << endl;
-	cout << "   5: Save Persons to file and continue;" << endl;
-	cout << "   6: Go back to Person options;" << endl;
-	cout << "   7: Exit from program." << endl;
-}
-
-void show_route_options(){
-	cout << "CREATE ROUTE OPTIONS: " << endl;
-	cout << "   1: Show graph;" << endl;
-	cout << "   2: Divide people and create routes for buses;" << endl;
-	cout << "   3: Import new graph;" << endl;
-	cout << "   4: Exit from program." << endl;
-}
