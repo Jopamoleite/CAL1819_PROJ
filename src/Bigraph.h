@@ -42,6 +42,7 @@ public:
 	Person getInfo() const;
 	void setInfo(const Person p);
 	double getDist() const;
+	std::vector<BigraphEdge*>  getOutgoing() const;
 	PersonVertex *getPath() const;
 	void addOutgoingEdge(BigraphEdge *be);
 	friend class Bigraph;
@@ -67,6 +68,7 @@ public:
 	unsigned long getInfo() const;
 	void setInfo(const unsigned long p);
 	double getDist() const;
+	std::vector<BigraphEdge*>  getIncoming() const;
 	POIVertex *getPath() const;
 	void addIncomingEdge(BigraphEdge *be);
 	friend class Bigraph;
@@ -84,6 +86,7 @@ public:
 	BigraphEdge(PersonVertex* o, POIVertex *d, double w);
 	POIVertex * getDest() const;
 	PersonVertex* getOrigin() const;
+	bool operator==(const BigraphEdge& be);
 	friend class Bigraph;
 	friend class POIVertex;
 	friend class PersonVertex;
@@ -136,9 +139,11 @@ public:
 	bool addBigraphEdge(const Person &person, const unsigned long &poi);
 	int getNumPersonVertex() const;
 	int getNumPOIVertex() const;
+	int getNumEdges() const;
 
 	std::vector<PersonVertex *> getPeople() const;
 	std::vector<POIVertex *> getPOIs() const;
+	std::vector<BigraphEdge> getEdges() const;
 
 	PersonVertex * initSingleSource(const Person &origin);
 	POIVertex * initSingleSource(const unsigned long &origin);

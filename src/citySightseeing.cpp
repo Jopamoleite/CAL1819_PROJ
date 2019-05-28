@@ -42,28 +42,6 @@ vector<VertexInfo> dijkstraShortestRoute(Graph graph, VertexInfo start, vector<V
 	}
 
 	return shortest_path;
-
-	/*route.push_back(start);
-
-	for(size_t i = 0; i < pois.size(); i++){
-		route.push_back(pois.at(i));
-	}
-
-
-
-	route.push_back(finish);
-
-	for(size_t i = 0; i < route.size()-1; i++){
-		graph.dijkstraShortestPath(route.at(i), route.at(i+1));
-		vector<VertexInfo> tmp_path = graph.getPath(route.at(i), route.at(i+1));
-		for(size_t j = 0; j < tmp_path.size(); j++){
-			if(shortest_path.size() == 0 || shortest_path.at(shortest_path.size()-1).getID() != tmp_path.at(j).getID()){
-				shortest_path.push_back(tmp_path.at(j));
-			}
-		}
-	}*/
-
-	//return shortest_path;
 }
 
 
@@ -80,10 +58,35 @@ vector<vector<unsigned long>> dividePeople(vector<Person> people, vector<unsigne
 		}
 	}
 
+	size_t numEdges = 0;
+	vector<PersonVertex*> vpv = graph.getPeople();
+	for(int i = 0; i < graph.getNumPersonVertex(); i++){
+		numEdges += vpv[i]->getOutgoing().size();
+	}
+	cout << "1. Person edges: " << numEdges << endl;
+	numEdges = 0;
+	vector<POIVertex*> vpoiv = graph.getPOIs();
+	for(int i = 0; i < graph.getNumPOIVertex(); i++){
+		numEdges += vpoiv[i]->getIncoming().size();
+	}
+	cout << "1. POI edges: " << numEdges << endl;
+
+
 	vector<vector<unsigned long>> result;
 	pair<vector<unsigned long>, vector<Person>> p = graph.getPeopleForBus();
 	result.push_back(p.first);
-
+	numEdges = 0;
+	vpv = graph.getPeople();
+	for(int i = 0; i < graph.getNumPersonVertex(); i++){
+		numEdges += vpv[i]->getOutgoing().size();
+	}
+	cout << "2. Person edges: " << numEdges << endl;
+	numEdges = 0;
+	vpoiv = graph.getPOIs();
+	for(int i = 0; i < graph.getNumPOIVertex(); i++){
+		numEdges += vpoiv[i]->getIncoming().size();
+	}
+	cout << "2. POI edges: " << numEdges << endl;
 	return result;
 }
 
