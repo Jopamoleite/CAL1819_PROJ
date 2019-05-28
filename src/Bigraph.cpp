@@ -202,6 +202,9 @@ pair<vector<unsigned long>, vector<Person>> Bigraph::getPeopleForBus(int bus_cap
 	vector<unsigned long> vpois;
 	vector<Person> vperson;
 
+	int actual_capacity;
+	size_t numEdges = 0; //TODO REDUZIR UM/DOIS CICLOS: passar e retornar o número de arestas que saem dos pois
+
 	vector<POIVertex*>::iterator most_requested_point = (this->pois).begin();
 	for(vector<POIVertex*>::iterator it = (this->pois).begin()++; it != (this->pois).end(); it++){
 		if(((*it)->incoming).size() > ((*most_requested_point)->incoming).size()){
