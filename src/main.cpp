@@ -355,7 +355,7 @@ int main() {
 				clock_t beginDivide = clock();
 
 				vector<pair<vector<unsigned long>, vector<Person>>> pairs = dividePeople(people, tmp_pois, bus_capacity);
-				cout << pairs.size() << endl;
+
 				clock_t endDivide = clock();
 				double elapsed_secsDivide = double(endDivide - beginDivide) / CLOCKS_PER_SEC;
 				cout << "Elapsed time for algorithm that groups turists: " << elapsed_secsDivide << endl;
@@ -395,15 +395,20 @@ int main() {
 
 					clock_t beginDijkstra = clock();
 
-					v = dijkstraShortestRoute(graph, origin , v, destiny);
+					vector<VertexInfo> path = dijkstraShortestRoute(graph, origin , v, destiny);
 
 					clock_t endDijkstra = clock();
 					double elapsed_secsDijkstra = double(endDijkstra - beginDijkstra) / CLOCKS_PER_SEC;
 					cout << "Elapsed time for Dijkstra: " << elapsed_secsDijkstra << endl;
-
-					for(size_t i = 0; i < v.size(); i++){
-						view.getGraphViewer()->setVertexColor(v[i].getID(), "black");
+					if(view.getViewerExists()){
+						for(size_t i = 0; i < path.size(); i++){
+							view.getGraphViewer()->setVertexColor(path[i].getID(), "black");
+						}
+						for(size_t i = 0; i < v.size(); i++){
+							view.getGraphViewer()->setVertexColor(v[i].getID(), "blue");
+						}
 					}
+
 				}
 				break;
 			}
@@ -484,6 +489,7 @@ vector<Person> import_people(string city){
 		for(size_t j = 0; j < numPOIs; j++){
 			getline(f, line);
 			poi = stoul(line);
+			pois.push_back(poi);
 		}
 		Person p(id, pois);
 		v.push_back(p);

@@ -7,12 +7,14 @@
 class ViewableGraph{
 	Graph graph;
 	GraphViewer *gv;
+	bool viewerExists;
 
 public:
 	ViewableGraph();
 	ViewableGraph(Graph graph);
 	GraphViewer* getGraphViewer();
     Graph getGraph();
+    bool getViewerExists();
     void setGraph(Graph graph);
     bool openViewGraph();
 };
