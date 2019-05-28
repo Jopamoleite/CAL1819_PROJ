@@ -284,6 +284,8 @@ void Graph::SCC()
 	bool *stackMember = new bool[vertexSet.size()];
 	stack<Vertex*> *stck = new stack<Vertex*>();
 
+	 clock_t begin = clock();
+
 	for (unsigned int i = 0; i < vertexSet.size(); i++)
 	{
 		vertexSet.at(i)->index = i;
@@ -295,6 +297,9 @@ void Graph::SCC()
 	for (unsigned int i = 0; i < vertexSet.size(); i++){
 		if (discovered[i] == -1)
 			SCCUtil(vertexSet.at(i), discovered, early, stck, stackMember);
-
 	}
+	 clock_t end = clock();
+
+	  double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
+	  cout << "Elapsed time for Tarjan's Algorithm: " << elapsed_secs << endl;
 }

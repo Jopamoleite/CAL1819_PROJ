@@ -372,14 +372,14 @@ int main() {
 				tmp_pois.insert(tmp_pois.end(), people[i].getPois().begin(), people[i].getPois().end());
 			}
 
+			clock_t begin = clock();
+
 			vector<pair<vector<unsigned long>, vector<Person>>> pairs = dividePeople(people, tmp_pois, bus_capacity);
-			for(size_t i = 0; i < pairs.size(); i++){
-				cout << "Path: ";
-				for(size_t j = 0; j < (pairs[i].first).size(); j++){
-					cout << pairs[i].first[j] << " ";
-				}
-				cout << endl;
-			}
+
+			clock_t end = clock();
+
+			double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
+			cout << "Elapsed time for Tarjan's Algorithm: " << elapsed_secs << endl;
 
 			for(size_t i = 0; i < pairs.size(); i++){
 				vector<VertexInfo> v;
