@@ -117,6 +117,18 @@ int main() {
 					bool found = false;
 					vector<unsigned long> SCC;
 
+					for(unsigned int i = 0; i < temp_pois.size(); i++){
+						if(temp_pois.at(i) == poi){
+							leave = true;
+							break;
+						}
+					}
+					if(leave){
+						cout << "POI already added!\n";
+						break;
+					}
+					leave = false;
+
 					for(unsigned int i = 0; i < graph.getSCCs().size(); i++){
 						if(leave || found)
 							break;
@@ -150,7 +162,7 @@ int main() {
 
 					leave = false;
 
-					for(int i = 0; i < temp_pois.size(); i++){
+					for(unsigned int i = 0; i < temp_pois.size(); i++){
 						if(find(SCC.begin(),SCC.end(),temp_pois.at(i)) == SCC.end()){
 							leave = true;
 							found = false;
@@ -165,11 +177,53 @@ int main() {
 
 					if(found){
 						cout << "POI added!\n";
+						temp_pois.push_back(poi);
 					}
 					break;
 				}
-				case 2:
+				case 2:{
+					if(temp_pois.size() == 0){
+						cout << "No POI added yet, check with option 3!\n";
+						break;
+					}
+
+					bool found = false;
+					vector<unsigned long> SCC;
+					for(unsigned int i = 0; i < graph.getSCCs().size(); i++){
+						if(found)
+							break;
+						for(unsigned int j = 0; j < graph.getSCCs().at(i).size(); j++){
+							if(graph.getSCCs().at(i).at(j) == temp_pois.at(0)){
+								found = true;
+								SCC = graph.getSCCs().at(i);
+								break;
+							}
+						}
+					}
+
+					if(!found){
+						cout << "Not found somehow?\n";
+						break;
+					}
+
+					int counter = 0;
+					vector<unsigned long> newPoi;
+					sort(SCC.begin(), SCC.end());
+					sort(temp_pois.begin(), temp_pois.end());
+				    set_difference(SCC.begin(), SCC.end(), temp_pois.begin(), temp_pois.end(), inserter(newPoi, newPoi.begin()));
+
+					for(unsigned int i = 0; i < newPoi.size(); i++){
+						VertexInfo v(newPoi.at(i));
+						if(graph.findVertex(v)->getInfo().getIsPOI()){
+							cout << "Possible POI " << newPoi.at(i) << endl;
+							counter++;
+						}
+					}
+					if(counter == 0){
+						cout << "No more possible POI!\n";
+					}
 					break;
+				}
 				case 3:
 					for(unsigned int i = 0; i < graph.getSCCs().size(); i++){
 						cout << "Connected POI:";
