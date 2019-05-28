@@ -148,7 +148,7 @@ public:
 	PersonVertex * initSingleSource(const Person &origin);
 	POIVertex * initSingleSource(const unsigned long &origin);
 
-	std::pair<std::vector<unsigned long>, std::vector<Person>>getPeopleForBus(int bus_capacity = INT_MAX);
+	std::pair<std::vector<unsigned long>, std::vector<Person>>getPeopleForBus(int &numEdges, int bus_capacity = INT_MAX);
 };
 
 

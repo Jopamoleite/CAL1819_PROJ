@@ -225,15 +225,28 @@ int main() {
 					}
 					break;
 				}
-				case 3:{
+				case 3:
+				{
+					vector<vector<unsigned long>> connectedPoi;
 					for(unsigned int i = 0; i < graph.getSCCs().size(); i++){
-						cout << "Connected POI:";
+						vector<unsigned long> v;
+						connectedPoi.push_back(v);
 						for(unsigned int j = 0; j < graph.getSCCs().at(i).size(); j++){
 							VertexInfo v(graph.getSCCs().at(i).at(j));
 							if(graph.findVertex(v)->getInfo().getIsPOI())
-								cout << " " << graph.getSCCs().at(i).at(j);
+								connectedPoi.at(i).push_back(graph.getSCCs().at(i).at(j));
 						}
-						cout << endl;
+					}
+
+					for(unsigned int i = 0; i < connectedPoi.size(); i++){
+						if(connectedPoi.at(i).size()>1)
+							cout << "Connected POI:";
+						for(unsigned int j = 0; j < connectedPoi.at(i).size(); j++){
+							if(connectedPoi.at(i).size()>1)
+								cout << " " << connectedPoi.at(i).at(j);
+						}
+						if(connectedPoi.at(i).size()>1)
+							cout << endl;
 					}
 					break;
 				}
@@ -259,7 +272,7 @@ int main() {
 				cout << "Graph doesn't exist yet!" << endl;
 				break;
 			}
-			graph.SCC();
+
 			for(unsigned int i = 0; i < graph.getSCCs().size(); i++){
 				for(unsigned int j = 0; j < graph.getSCCs().at(i).size(); j++){
 					view.getGraphViewer()->setVertexColor(graph.getSCCs().at(i).at(j), "red");
