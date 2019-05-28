@@ -23,7 +23,7 @@ vector<VertexInfo> dijkstraShortestRoute(Graph graph, VertexInfo start, vector<V
 	VertexInfo last_found;
 
 	for(size_t i = 0; i < pois.size(); i++)
-			pois_set.insert(pois.at(i));
+		pois_set.insert(pois.at(i));
 
 	graph.dijkstraPathToNearestPOI(start, pois_set, last_found, shortest_path);
 
@@ -82,7 +82,6 @@ vector<vector<unsigned long>> dividePeople(vector<Person> people, vector<unsigne
 
 	vector<vector<unsigned long>> result;
 	pair<vector<unsigned long>, vector<Person>> p = graph.getPeopleForBus();
-
 	result.push_back(p.first);
 
 	return result;

@@ -7,6 +7,7 @@
 #include <unordered_set>
 #include <utility>
 #include <limits.h>
+#include <iostream>
 
 using namespace std;
 
@@ -174,26 +175,28 @@ bool Bigraph::addBigraphEdge(const Person &person, const unsigned long &poi){
 }
 
 pair<vector<unsigned long>, vector<Person>> Bigraph::getPeopleForBus(int bus_capacity){
+	if(this->edges.size() == 0){
+		cout << "NO MORE EDGES" << endl;
+		return pair<vector<unsigned long>, vector<Person>>();
+	}
 	vector<unsigned long> vpois;
 	vector<Person> vperson;
 
-	vector<POIVertex*>::iterator most_requested_point = this->pois.begin();
-	for(vector<POIVertex*>::iterator it = this->pois.begin()++; it != this->pois.end(); it++){
-		if((*it)->incoming.size() > (*most_requested_point)->incoming.size()){
+	vector<POIVertex*>::iterator most_requested_point = (this->pois).begin();
+	for(vector<POIVertex*>::iterator it = (this->pois).begin()++; it != (this->pois).end(); it++){
+		if(((*it)->incoming).size() > ((*most_requested_point)->incoming).size()){
 			most_requested_point = it;
 		}
 	}
 	vpois.push_back((*most_requested_point)->info);
-	vector<BigraphEdge*> be = (*most_requested_point)->incoming;
-	for(vector<BigraphEdge*>::iterator it = be.begin(); it != be.end(); it++){
+	for(vector<BigraphEdge*>::iterator it = ((*most_requested_point)->incoming).begin(); it != ((*most_requested_point)->incoming).end(); it++){
 		vperson.push_back(((*it)->origin)->info);
-		vector<BigraphEdge*> person_be = ((*it)->origin)->outgoing;
-		for(vector<BigraphEdge*>::iterator it1 = person_be.begin(); it1 != person_be.end(); it1++){
+		for(vector<BigraphEdge*>::iterator it1 = ((*it)->origin)->outgoing.begin(); it1 != (((*it)->origin)->outgoing).end(); it1++){
 			vpois.push_back(((*it1)->dest)->info);
-			person_be.erase(it1);
+			(((*it)->origin)->outgoing).erase(it1);
 			it1--;
 		}
-		be.erase(it);
+		((*most_requested_point)->incoming).erase(it);
 		it--;
 	}
 
