@@ -39,6 +39,10 @@ void PersonVertex::addOutgoingEdge(BigraphEdge *be){
 	this->outgoing.push_back(be);
 }
 
+vector<BigraphEdge*> PersonVertex::getOutgoing() const{
+	return this->outgoing;
+}
+
 POIVertex::POIVertex(unsigned long in) {
 	this->info = in;
 }
@@ -67,6 +71,10 @@ void POIVertex::addIncomingEdge(BigraphEdge *be){
 	this->incoming.push_back(be);
 }
 
+vector<BigraphEdge*>  POIVertex::getIncoming() const{
+	return this->incoming;
+}
+
 BigraphEdge::BigraphEdge(PersonVertex* o, POIVertex *d, double w) {
 	this->origin = o;
 	this->dest = d;
@@ -79,6 +87,10 @@ POIVertex * BigraphEdge::getDest() const {
 
 PersonVertex* BigraphEdge::getOrigin() const {
 	return this->origin;
+}
+
+bool BigraphEdge::operator==(const BigraphEdge& be){
+	return this->origin->getInfo() == be.origin->getInfo() && this->dest->getInfo() == be.dest->getInfo();
 }
 
 PersonVertex *Bigraph::findPersonVertex(const Person &in) {
@@ -130,6 +142,14 @@ int Bigraph::getNumPersonVertex() const {
 
 int Bigraph::getNumPOIVertex() const {
 	return this->pois.size();
+}
+
+int Bigraph::getNumEdges() const {
+	return this->edges.size();
+}
+
+vector<BigraphEdge> Bigraph::getEdges() const{
+	return this->edges;
 }
 
 vector<PersonVertex *> Bigraph::getPeople() const {
@@ -188,11 +208,13 @@ pair<vector<unsigned long>, vector<Person>> Bigraph::getPeopleForBus(int bus_cap
 			most_requested_point = it;
 		}
 	}
+	vector<BigraphEdge*> vbe;
 	vpois.push_back((*most_requested_point)->info);
 	for(vector<BigraphEdge*>::iterator it = ((*most_requested_point)->incoming).begin(); it != ((*most_requested_point)->incoming).end(); it++){
 		vperson.push_back(((*it)->origin)->info);
 		for(vector<BigraphEdge*>::iterator it1 = ((*it)->origin)->outgoing.begin(); it1 != (((*it)->origin)->outgoing).end(); it1++){
 			vpois.push_back(((*it1)->dest)->info);
+			vbe.push_back(*it1);
 			(((*it)->origin)->outgoing).erase(it1);
 			it1--;
 		}
@@ -200,10 +222,20 @@ pair<vector<unsigned long>, vector<Person>> Bigraph::getPeopleForBus(int bus_cap
 		it--;
 	}
 
+	for(vector<BigraphEdge*>::iterator it = vbe.begin(); it != vbe.end(); it++){
+		for(vector<BigraphEdge*>::iterator it1 = (*it)->dest->incoming.begin(); it1 != (*it)->dest->incoming.end(); it1++){
+			if(*it == *it1){
+				(*it)->dest->incoming.erase(it1);
+				break;
+			}
+		}
+	}
+
+
 	//Remove duplicates
 	unordered_set<unsigned long> us;
 	for (unsigned long i : vpois)
-	    us.insert(i);
+		us.insert(i);
 	vpois.assign(us.begin(), us.end());
 
 	return make_pair(vpois, vperson);

@@ -210,7 +210,7 @@ int main() {
 					vector<unsigned long> newPoi;
 					sort(SCC.begin(), SCC.end());
 					sort(temp_pois.begin(), temp_pois.end());
-				    set_difference(SCC.begin(), SCC.end(), temp_pois.begin(), temp_pois.end(), inserter(newPoi, newPoi.begin()));
+					set_difference(SCC.begin(), SCC.end(), temp_pois.begin(), temp_pois.end(), inserter(newPoi, newPoi.begin()));
 
 					for(unsigned int i = 0; i < newPoi.size(); i++){
 						VertexInfo v(newPoi.at(i));
@@ -231,7 +231,6 @@ int main() {
 						vector<unsigned long> v;
 						connectedPoi.push_back(v);
 						for(unsigned int j = 0; j < graph.getSCCs().at(i).size(); j++){
-							cout << j << endl;
 							VertexInfo v(graph.getSCCs().at(i).at(j));
 							if(graph.findVertex(v)->getInfo().getIsPOI())
 								connectedPoi.at(i).push_back(graph.getSCCs().at(i).at(j));
@@ -249,15 +248,15 @@ int main() {
 							cout << endl;
 					}
 					break;
-
 				}
 				case 4:{
 					Person p(temp_pois);
 					//ADICIONAR A PESSOA A ALGUM LADO
 					break;
 				}
-				case 5:
+				case 5:{
 					break;
+				}
 				default:
 					cerr << "ERROR!!!!" << endl;
 					return -1;
@@ -280,32 +279,33 @@ int main() {
 			}
 
 			//TEST DIVIDE PEOPLE
-			/*vector<unsigned long> pois = {25504003, 1243857999};
-					Person p(pois);
-					pois.clear();
-					pois = {25504003, 25504005};
-					Person p1(pois);
-					pois.clear();
-					pois = {25504003, 1243857999};
-					Person p2(pois);
-					pois.clear();
-					pois = {281726450, 1243857999};
-					Person p3(pois);
-					pois.clear();
-					pois = {281726450, 25504011};
-					Person p4(pois);
-					vector<Person> people = {p, p1, p2, p3, p4};
-					//vector<vector<unsigned long>> div_pois = dividePeople(people,{1, 2, 3} 3);
-					/*for(size_t i = 0; i < div_pois.size(); i++){
-						cout << "Path: ";
-						for(size_t j = 0; j < div_pois[i].size(); j++){
-							cout << div_pois[i][j] << " ";
-						}
-						cout << endl;
-					}*/
+			vector<unsigned long> pois = {25504003, 1243857999};
+			vector<unsigned long> tmp_pois = {25504003, 1243857999, 25504005, 281726450, 25504011};
+			Person p(pois);
+			pois.clear();
+			pois = {25504003, 25504005};
+			Person p1(pois);
+			pois.clear();
+			pois = {25504003, 1243857999};
+			Person p2(pois);
+			pois.clear();
+			pois = {281726450, 1243857999};
+			Person p3(pois);
+			pois.clear();
+			pois = {281726450, 25504011};
+			Person p4(pois);
+			vector<Person> people = {p, p1, p2, p3, p4};
+			vector<vector<unsigned long>> div_pois = dividePeople(people, tmp_pois, 0);
+			for(size_t i = 0; i < div_pois.size(); i++){
+				cout << "Path: ";
+				for(size_t j = 0; j < div_pois[i].size(); j++){
+					cout << div_pois[i][j] << " ";
+				}
+				cout << endl;
+			}
 
 			//TEST DIJKSTA
-			VertexInfo v(25504003);
+			/*VertexInfo v(25504003);
 			gv->setVertexColor(25504003, "blue");
 			VertexInfo v1(1243857999);
 			gv->setVertexColor(1243857999, "blue");
@@ -323,7 +323,7 @@ int main() {
 			for(size_t i = 0; i < vec.size(); i++){
 				if(!(vec[i] == v) && !(vec[i] == v1) && !(vec[i] == v2) && !(vec[i] == v3) && !(vec[i] == v4) && !(vec[i] == v5))
 					gv->setVertexColor(vec[i].getID(), "black");
-			}
+			}*/
 			break;
 		}
 		case 4:
