@@ -75,10 +75,6 @@ vector<pair<vector<unsigned long>, vector<Person>>> dividePeople(vector<Person> 
 			p = graph.getPeopleForBus(numEdges, bus_capacity);
 		}
 		result.push_back(p);
-		numEdges = 0;
-		for(size_t i = 0; i < vpois.size(); i++){
-			numEdges += (vpois[i]->getIncoming()).size();
-		}
 	}
 
 	return result;
