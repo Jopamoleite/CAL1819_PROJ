@@ -330,7 +330,7 @@ int main() {
 					break;
 				}
 
-				cout << "Bus capacity (-1 not considers capacity): " << endl;
+				cout << "Bus capacity (-1 does not consider capacity): " << endl;
 				int bus_capacity = 0;
 				do {
 					cin >> bus_capacity;
