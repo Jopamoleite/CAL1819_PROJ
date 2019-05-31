@@ -24,6 +24,7 @@ void show_create_person_options();
 void show_route_options();
 void save_people(vector<Person> people, string city);
 vector<Person> import_people(string city);
+string getPathColor(size_t i);
 
 void normalize(string &s) {
 	for (unsigned int i = 0; i < s.length(); i++) {
@@ -401,30 +402,27 @@ int main() {
 					double elapsed_secsDijkstra = double(endDijkstra - beginDijkstra) / CLOCKS_PER_SEC;
 					cout << "Elapsed time for Dijkstra: " << elapsed_secsDijkstra << endl;
 
-					for(size_t i = 0; i < pairs.size(); i++){
-						cout << "BUS No " << i+1 << endl;
-						cout << "   Persons: ";
-						for(size_t j = 0; j < pairs[i].second.size(); j++){
-							cout << pairs[i].second[j].getID() << " ";
-						}
-						cout << endl << "   Path: ";
-						for(size_t j = 0; j < path.size(); j++){
-							cout << path[j].getID() << " ";
-						}
-						cout << endl << "   Visited POIs: ";
-						for(size_t j = 0; j < pairs[i].first.size(); j++){
-							cout << pairs[i].first[j] << " ";
-						}
-						cout << endl << endl;
+					cout << "BUS No " << i+1 << endl;
+					cout << "   Persons: ";
+					for(size_t j = 0; j < pairs[i].second.size(); j++){
+						cout << pairs[i].second[j].getID() << " ";
 					}
-
+					cout << endl << "   Path: ";
+					for(size_t j = 0; j < path.size(); j++){
+						cout << path[j].getID() << " ";
+					}
+					cout << endl << "   Visited POIs: ";
+					for(size_t j = 0; j < pairs[i].first.size(); j++){
+						cout << pairs[i].first[j] << " ";
+					}
+					cout << endl << endl;
 
 					if(view.getViewerExists()){
-						for(size_t i = 0; i < path.size(); i++){
-							view.getGraphViewer()->setVertexColor(path[i].getID(), "black");
+						for(size_t j = 0; j < path.size(); j++){
+							view.getGraphViewer()->setVertexColor(path[j].getID(), getPathColor(i));
 						}
-						for(size_t i = 0; i < v.size(); i++){
-							view.getGraphViewer()->setVertexColor(v[i].getID(), "blue");
+						for(size_t j = 0; j < v.size(); j++){
+							view.getGraphViewer()->setVertexColor(v[j].getID(), "blue");
 						}
 					}
 
@@ -517,4 +515,31 @@ vector<Person> import_people(string city){
 	f.close();
 
 	return v;
+}
+
+string getPathColor(size_t i){
+	switch(i%10){
+	case 0:
+		return "black";
+	case 1:
+		return "pink";
+	case 2:
+		return "white";
+	case 3:
+		return "orange";
+	case 4:
+		return "green";
+	case 5:
+		return "cyan";
+	case 6:
+		return "gray";
+	case 7:
+		return "dark_gray";
+	case 8:
+		return "light_gray";
+	case 9:
+		return "magenta";
+	default:
+		return "";
+	}
 }

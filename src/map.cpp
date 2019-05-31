@@ -79,6 +79,7 @@ Graph readGraph(string name){
 		VertexInfo destiny(ID_destiny, 0, 0, 0, 0);
 
 		g.addEdge(origin, destiny);
+		g.addEdge(destiny, origin);
 
 		lines--;
 	}
